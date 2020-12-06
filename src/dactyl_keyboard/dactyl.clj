@@ -53,6 +53,8 @@
 (def wall-xy-offset 5)                  ; offset in the x and/or y direction for the first downward-sloping part of the wall (negative)
 (def wall-thickness 2)                  ; wall thickness parameter; originally 5
 
+(def remove-partial-row true)
+
 ;; Settings for column-style == :fixed
 ;; The defaults roughly match Maltron settings
 ;; http://patentimages.storage.googleapis.com/EP0219944A2/imgf0002.png
@@ -260,7 +262,7 @@
   (apply union
          (for [column columns
                row rows
-               :when (or (.contains [(+ innercol-offset 2) (+ innercol-offset 3)] column)
+               :when (or (and (not remove-partial-row) (.contains [(+ innercol-offset 2) (+ innercol-offset 3)] column))
                          (and (.contains [(+ innercol-offset 4) (+ innercol-offset 5)] column) extra-row (= ncols (+ innercol-offset 6)))
                          (and (.contains [(+ innercol-offset 4)] column) extra-row (= ncols (+ innercol-offset 5)))
                          (and inner-column (not= row cornerrow)(= column 0))
@@ -910,11 +912,12 @@
     (key-place (+ innercol-offset 3) cornerrow web-post-br)
     (key-place (+ innercol-offset 3) lastrow web-post-tl)
     (key-place (+ innercol-offset 3) cornerrow web-post-bl))
-   (triangle-hulls
-    (key-place (+ innercol-offset 2) lastrow web-post-tr)
-    (key-place (+ innercol-offset 2) lastrow web-post-br)
-    (key-place (+ innercol-offset 3) lastrow web-post-tl)
-    (key-place (+ innercol-offset 3) lastrow web-post-bl))
+   (if (not remove-partial-row)
+     (triangle-hulls
+      (key-place (+ innercol-offset 2) lastrow web-post-tr)
+      (key-place (+ innercol-offset 2) lastrow web-post-br)
+      (key-place (+ innercol-offset 3) lastrow web-post-tl)
+      (key-place (+ innercol-offset 3) lastrow web-post-bl)))
    (triangle-hulls
     (cfthumb-tr-place web-post-br)
     (cfthumb-tr-place web-post-tr)
@@ -1262,6 +1265,7 @@
     "cf" cf-thumb-wall
     "mini" mini-thumb-wall))
 
+(def front-wall-row (if remove-partial-row (dec lastrow)lastrow))
 (def case-walls
   (union
    thumb-wall-type
@@ -1285,8 +1289,8 @@
    (wall-brace (partial key-place 0 0) 0 1 web-post-tl (partial left-key-place 0 1) 0 1 web-post)
    (wall-brace (partial left-key-place 0 1) 0 1 web-post (partial left-key-place 0 1) -1 0 web-post)
    ; front wall
-   (key-wall-brace (+ innercol-offset 3) lastrow  0 -1 web-post-bl (+ innercol-offset 3) lastrow   0 -1 web-post-br)
-   (key-wall-brace (+ innercol-offset 3) lastrow  0 -1 web-post-br (+ innercol-offset 4) extra-cornerrow 0 -1 web-post-bl)
+   (key-wall-brace (+ innercol-offset 3) front-wall-row  0 -1 web-post-bl (+ innercol-offset 3) front-wall-row   0 -1 web-post-br)
+   (key-wall-brace (+ innercol-offset 3) front-wall-row  0 -1 web-post-br (+ innercol-offset 4) extra-cornerrow 0 -1 web-post-bl)
    (for [x (range (+ innercol-offset 4) ncols)] (key-wall-brace x extra-cornerrow 0 -1 web-post-bl x       extra-cornerrow 0 -1 web-post-br))
    (for [x (range (+ innercol-offset 5) ncols)] (key-wall-brace x extra-cornerrow 0 -1 web-post-bl (dec x) extra-cornerrow 0 -1 web-post-br))
    ))
@@ -1435,6 +1439,7 @@
                      connectors
                      inner-connectors
                      thumb-type
+                     ; thumb-connector-type has the thing
                      thumb-connector-type
                      (difference (union case-walls
                                         screw-insert-outers)
