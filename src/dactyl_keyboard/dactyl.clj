@@ -42,7 +42,7 @@
           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
           :else [0 0 0])))
 
-(def thumb-offsets [12 -3 7]) ; cf default [6 -3 7]
+(def thumb-offsets [18 -3 4]) ; cf default [6 -3 7]
 
 (def keyboard-z-offset 7)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
@@ -782,17 +782,17 @@
 (defn cfthumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -24) [0 1 0])
+       (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-13 -9.8 4])))
+       (translate [-11.5 -9.8 6])))
 (defn cfthumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  6) [1 0 0])
-       (rotate (deg2rad -24) [0 1 0])
+       (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-7.5 -29.5 0])))
+       (translate [-5.0 -29.5 2])))
 (defn cfthumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
@@ -810,17 +810,17 @@
 (defn cfthumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
-       (rotate (deg2rad -37) [0 1 0])
+       (rotate (deg2rad -10) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-46 -13.8 -19])))
+       (translate [-53 -18.8 -14])))
 (defn cfthumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   6) [1 0 0])
-       (rotate (deg2rad -37) [0 1 0])
+       (rotate (deg2rad -10) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-39 -34 -22])))
+       (translate [-46 -39 -18])))
 
 (defn cfthumb-1x-layout [shape]
   (union
@@ -1359,7 +1359,7 @@
     (def screw-offset-bl [13 4 0])
     (def screw-offset-bm [13 -7 0]))
 (when (and (= thumb-style "cf") (false? inner-column))
-    (def screw-offset-bl [-3.7 2 0])
+    (def screw-offset-bl [7 2 0])
     (def screw-offset-bm [13 -7 0]))
 (when (and (= thumb-style "mini") inner-column)
     (def screw-offset-bl [18 8 0])
