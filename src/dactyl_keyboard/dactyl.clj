@@ -38,9 +38,22 @@
           (= column 3) [0 2.82 -4.5]
           (>= column 5) [0 -12 5.64]    ; original [0 -5.8 5.64]
           :else [0 0 0])
-    (cond (= column 2) [0 2.82 -4.5]
-          (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
+    (cond
+          (= column 0) [0.5 0 0]
+          (= column 2) [0 2.82 -4.5]
+          (= column 4) [2 -12 5.64]
+          (>= column 5) [1.5 -12 5.64]    ; original [0 -5.8 5.64]
           :else [0 0 0])))
+
+;; (defn column-offset [column]
+;;   (if inner-column
+;;     (cond (<= column 1) [0 -2 0]
+;;           (= column 3) [0 2.82 -4.5]
+;;           (>= column 5) [0 -12 5.64]    ; original [0 -5.8 5.64]
+;;           :else [0 0 0])
+;;     (cond (= column 2) [0 2.82 -4.5]
+;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
+;;           :else [0 0 0])))
 
 (def thumb-offsets [18 -3 4]) ; cf default [6 -3 7]
 
@@ -785,14 +798,14 @@
        (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-11.5 -9.8 6])))
+       (translate [-12.5 -9.8 8])))
 (defn cfthumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  6) [1 0 0])
        (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-5.0 -29.5 2])))
+       (translate [-6.0 -29.5 4])))
 (defn cfthumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
@@ -810,17 +823,17 @@
 (defn cfthumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
-       (rotate (deg2rad -10) [0 1 0])
+       (rotate (deg2rad 0) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-53 -18.8 -14])))
+       (translate [-54.5 -18.8 -13])))
 (defn cfthumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   6) [1 0 0])
-       (rotate (deg2rad -10) [0 1 0])
+       (rotate (deg2rad 0) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-46 -39 -18])))
+       (translate [-50 -39 -17])))
 
 (defn cfthumb-1x-layout [shape]
   (union
@@ -1359,7 +1372,7 @@
     (def screw-offset-bl [13 4 0])
     (def screw-offset-bm [13 -7 0]))
 (when (and (= thumb-style "cf") (false? inner-column))
-    (def screw-offset-bl [7 2 0])
+    (def screw-offset-bl [-3 2 0])
     (def screw-offset-bm [13 -7 0]))
 (when (and (= thumb-style "mini") inner-column)
     (def screw-offset-bl [18 8 0])
