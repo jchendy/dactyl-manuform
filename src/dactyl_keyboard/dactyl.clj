@@ -42,9 +42,9 @@
           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
           :else [0 0 0])))
 
-(def thumb-offsets [6 -3 7])
+(def thumb-offsets [12 -3 7]) ; cf default [6 -3 7]
 
-(def keyboard-z-offset 10)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
+(def keyboard-z-offset 7)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
 (def extra-width 2.5)                   ; extra space between the base of keys; original= 2
 (def extra-height 1.0)                  ; original= 0.5
@@ -795,44 +795,44 @@
        (translate [-7.5 -29.5 0])))
 (defn cfthumb-ml-place [shape]
   (->> shape
-       (rotate (deg2rad  8) [1 0 0])
+       (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -31) [0 1 0])
-       (rotate (deg2rad  14) [0 0 1])
+       (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-30.5 -17 -6])))
+       (translate [-30.5 -11.8 -6])))
 (defn cfthumb-mr-place [shape]
   (->> shape
-       (rotate (deg2rad  4) [1 0 0])
+       (rotate (deg2rad  6) [1 0 0])
        (rotate (deg2rad -31) [0 1 0])
-       (rotate (deg2rad  14) [0 0 1])
+       (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-22.2 -41 -10.3])))
-(defn cfthumb-br-place [shape]
-  (->> shape
-       (rotate (deg2rad   2) [1 0 0])
-       (rotate (deg2rad -37) [0 1 0])
-       (rotate (deg2rad  18) [0 0 1])
-       (translate thumborigin)
-       (translate [-37 -46.4 -22])))
+       (translate [-24.2 -32 -10.3])))
 (defn cfthumb-bl-place [shape]
+  (->> shape
+       (rotate (deg2rad   10) [1 0 0])
+       (rotate (deg2rad -37) [0 1 0])
+       (rotate (deg2rad  10) [0 0 1])
+       (translate thumborigin)
+       (translate [-46 -13.8 -19])))
+(defn cfthumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   6) [1 0 0])
        (rotate (deg2rad -37) [0 1 0])
-       (rotate (deg2rad  18) [0 0 1])
+       (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-47 -23 -19])))
+       (translate [-39 -34 -22])))
 
 (defn cfthumb-1x-layout [shape]
   (union
    (cfthumb-tr-place (rotate (/ π 2) [0 0 0] shape))
    (cfthumb-mr-place shape)
    (cfthumb-br-place shape)
+   (cfthumb-bl-place shape)
+   (cfthumb-ml-place shape)
    (cfthumb-tl-place (rotate (/ π 2) [0 0 0] shape))))
 
 (defn cfthumb-15x-layout [shape]
-  (union
-   (cfthumb-bl-place shape)
-   (cfthumb-ml-place shape)))
+  )
 
 (def cfthumbcaps
   (union
@@ -898,15 +898,20 @@
     (key-place (+ innercol-offset 1) cornerrow web-post-bl)
     (cfthumb-tl-place web-post-tr)
     (key-place (+ innercol-offset 1) cornerrow web-post-br)
-    (key-place (+ innercol-offset 2) lastrow web-post-tl)
-    (key-place (+ innercol-offset 2) lastrow web-post-bl)
-    (cfthumb-tl-place web-post-tr)
-    (key-place (+ innercol-offset 2) lastrow web-post-bl)
-    (cfthumb-tl-place web-post-br)
-    (key-place (+ innercol-offset 2) lastrow web-post-br)
-    (key-place (+ innercol-offset 3) lastrow web-post-bl)
-    (cfthumb-tl-place web-post-br)
-    (cfthumb-tr-place web-post-tr))
+    (if (not remove-partial-row)
+      ((key-place (+ innercol-offset 2) lastrow web-post-tl)
+      (key-place (+ innercol-offset 2) lastrow web-post-bl)
+      (cfthumb-tl-place web-post-tr)
+      (key-place (+ innercol-offset 2) lastrow web-post-bl)
+      (cfthumb-tl-place web-post-br)
+      (key-place (+ innercol-offset 2) lastrow web-post-br)
+      (key-place (+ innercol-offset 3) lastrow web-post-bl)
+      (cfthumb-tl-place web-post-br)
+      (cfthumb-tr-place web-post-tr)
+      )
+    )
+
+    )
    (triangle-hulls
     (key-place (+ innercol-offset 3) lastrow web-post-tr)
     (key-place (+ innercol-offset 3) cornerrow web-post-br)
