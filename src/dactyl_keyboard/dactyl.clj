@@ -55,7 +55,7 @@
 ;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
 ;;           :else [0 0 0])))
 
-(def thumb-offsets [23 -3 1]) ; cf default [6 -3 7]
+(def thumb-offsets [20 -5 1]) ; cf default [6 -3 7]
 
 (def keyboard-z-offset 7)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
@@ -807,7 +807,7 @@
        (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-6.0 -25.5 7.5])))
+       (translate [-6.0 -27 7.5])))
 (defn cfthumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
@@ -821,21 +821,21 @@
        (rotate (deg2rad -21) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-26.2 -32 -6.3])))
+       (translate [-26.2 -34 -6.3])))
 (defn cfthumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
        (rotate (deg2rad 10) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-56.5 -18.8 -8])))
+       (translate [-57 -18.8 -8])))
 (defn cfthumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   -5) [1 0 0])
        (rotate (deg2rad 10) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-52 -41 -9])))
+       (translate [-52.5 -43 -9])))
 
 (defn cfthumb-1x-layout [shape]
   (union
