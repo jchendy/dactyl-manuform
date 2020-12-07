@@ -807,7 +807,7 @@
        (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-6.0 -27 7.5])))
+       (translate [-6.0 -27 5.5])))
 (defn cfthumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
@@ -821,7 +821,7 @@
        (rotate (deg2rad -21) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-26.2 -34 -6.3])))
+       (translate [-26.2 -34 -8.3])))
 (defn cfthumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
@@ -835,7 +835,7 @@
        (rotate (deg2rad 10) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-52.5 -43 -9])))
+       (translate [-52.5 -43 -11])))
 
 (defn cfthumb-1x-layout [shape]
   (union
