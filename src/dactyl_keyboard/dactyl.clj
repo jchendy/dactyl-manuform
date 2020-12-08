@@ -41,8 +41,8 @@
     (cond
           (= column 0) [0.5 0 0]
           (= column 2) [0 2.82 -4.5]
-          (= column 4) [2 -12 5.64]
-          (>= column 5) [1.5 -12 5.64]    ; original [0 -5.8 5.64]
+          (= column 4) [4 -10 7.64]
+          (>= column 5) [3.5 -10 7.64]    ; original [0 -5.8 5.64]
           :else [0 0 0])))
 
 ;; (defn column-offset [column]
@@ -797,45 +797,45 @@
 (defn cfthumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -45) [0 1 0])
+       (rotate (deg2rad -50) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-12 -3.8 6.5])))
+       (translate [-12 -3.8 7.5])))
 (defn cfthumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
-       (rotate (deg2rad -45) [0 1 0])
+       (rotate (deg2rad -50) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-6.0 -27 5.5])))
+       (translate [-6.0 -27 6.5])))
 (defn cfthumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -21) [0 1 0])
+       (rotate (deg2rad -23) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-32.5 -9.8 -6])))
+       (translate [-32.5 -9.8 -6.5])))
 (defn cfthumb-mr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
-       (rotate (deg2rad -21) [0 1 0])
+       (rotate (deg2rad -23) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-26.2 -34 -8.3])))
+       (translate [-26.2 -34 -8.8])))
 (defn cfthumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
-       (rotate (deg2rad 10) [0 1 0])
-       (rotate (deg2rad  10) [0 0 1])
+       (rotate (deg2rad 20) [0 1 0])
+       (rotate (deg2rad  15) [0 0 1])
        (translate thumborigin)
-       (translate [-57 -18.8 -8])))
+       (translate [-60.5 -18.8 -8])))
 (defn cfthumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   -5) [1 0 0])
-       (rotate (deg2rad 10) [0 1 0])
+       (rotate (deg2rad 20) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-52.5 -43 -11])))
+       (translate [-55 -43 -10.5])))
 
 (defn cfthumb-1x-layout [shape]
   (union
@@ -917,7 +917,7 @@
     ;; (key-place (+ innercol-offset 0) cornerrow web-post-br)
     (cfthumb-tl-place web-post-tl)
     (key-place (+ innercol-offset 1) cornerrow web-post-bl)
-    (cfthumb-tl-place web-post-tr)
+    ;; (cfthumb-tl-place web-post-tr)
     (key-place (+ innercol-offset 1) cornerrow web-post-br)
 
     ;; bad deep triangles
@@ -1146,20 +1146,29 @@
    ;; (wall-brace cfthumb-tl-place  0.5 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  0 -1 web-post-bl)
    ;; (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1)  0 -1 web-post-bl)
    ; jhendy put the next one back
-   (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  1 -1 web-post-br)
+   ;; (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  1 -1 web-post-br)
    ;; (wall-brace cfthumb-tl-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  0 -1 web-post-bl)
    ;; (hull (cfthumb-tl-place  web-post-tr)
    ;;       (cfthumb-tl-place  web-post-br)
    ;;       (key-place  3 5 web-post)
    ;;       (key-place  3 6 web-post))
    ; jhendy hack walls
+   ;; (wall-brace cfthumb-tl-place  0 0 web-post-br (partial key-place 2 5)  0 0 web-post-br)
+   (wall-brace cfthumb-tr-place  0.5 0 web-post-br cfthumb-tr-place  0.5 0 web-post-tr)
+   (wall-brace cfthumb-tl-place  0.5 0 web-post-br cfthumb-tl-place  0.5 0 web-post-tr)
+   ; tweener
+   (wall-brace cfthumb-tl-place  0.5 0 web-post-br cfthumb-tr-place  0.5 0 web-post-tr)
+   ; corner
+   (wall-brace cfthumb-tr-place 0.5 0 web-post-br cfthumb-tr-place  0 -1 web-post-br)
+
+   ; next three are bad triangles
    (hull (cfthumb-bl-place  web-post-tr)
          (cfthumb-bl-place  web-post-tl)
          (cfthumb-bl-place  thumb-post-tr)
          (cfthumb-bl-place  thumb-post-tl)
          )
-   (hull (cfthumb-ml-place  web-post-tr)
-         (cfthumb-ml-place  web-post-tl)
+   (hull (cfthumb-ml-place  thumb-post-tr)
+         (cfthumb-ml-place  thumb-post-tl)
          (key-place  1 3 web-post-bl)
          (key-place  1 3 web-post-br)
          (key-place  0 3 web-post-bl)
@@ -1169,11 +1178,31 @@
          ;; (cfthumb-bl-place  thumb-post-tl)
          )
 
+   (hull (cfthumb-ml-place  thumb-post-tr)
+         (cfthumb-ml-place  thumb-post-tl)
+         (cfthumb-ml-place  web-post-tl)
+         (cfthumb-ml-place  web-post-tr)
+         )
+
+   (hull (cfthumb-ml-place  web-post-tr)
+         (cfthumb-ml-place  thumb-post-tr)
+         (cfthumb-tl-place  web-post-tl)
+         ;; (cfthumb-tl-place  thumb-post-tl)
+         )
+
    (hull (cfthumb-tl-place  web-post-tl)
          (cfthumb-tl-place  web-post-tr)
-         (key-place  2 3 web-post-bl)
-         (key-place  2 3 web-post-br)
+         (cfthumb-tl-place  (translate [3.6 0 -8] web-post-tr))
+         (key-place  2 3 (translate [0 -1 0] web-post-bl))
+         (key-place  2 3 (translate [0 -1 0] web-post-br))
          )
+
+   ;; (hull (cfthumb-tr-place  web-post-tr)
+   ;;       (cfthumb-tr-place  web-post-br)
+   ;;       (key-place  3 3 web-post-bl)
+   ;;       (key-place  3 3 web-post-br)
+   ;;       )
+   ; end jhendy hack
    ; clunky bit on the top left cfthumb connection  (normal connectors don't work well)
    ;; (hull
    ;;  (key-place 0 3 web-post-bl)
@@ -1467,8 +1496,8 @@
     (def screw-offset-bl [13 4 0])
     (def screw-offset-bm [13 -7 0]))
 (when (and (= thumb-style "cf") (false? inner-column))
-    (def screw-offset-bl [-3 2 0])
-    (def screw-offset-bm [13 -7 0]))
+    (def screw-offset-bl [-9 4 0])
+    (def screw-offset-bm [26 -9 0]))
 (when (and (= thumb-style "mini") inner-column)
     (def screw-offset-bl [18 8 0])
     (def screw-offset-bm [-1 -7 0]))
