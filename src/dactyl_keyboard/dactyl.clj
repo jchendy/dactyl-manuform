@@ -822,14 +822,14 @@
        (rotate (deg2rad -20) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-26.7 -34 -8.8])))
+       (translate [-26.7 -34 -9.3])))
 (defn cfthumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   40) [1 0 0])
        (rotate (deg2rad 35) [0 1 0])
        (rotate (deg2rad  15) [0 0 1])
        (translate thumborigin)
-       (translate [-65.5 0 1])))
+       (translate [-64.5 0 1])))
 (defn cfthumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   -15) [1 0 0])
