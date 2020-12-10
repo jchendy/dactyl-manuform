@@ -14,8 +14,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ; v7
 
-(def nrows 5)
-(def ncols 6)
+(def nrows 4)
+(def ncols 5)
 
 (def α (/ π 12))                        ; curvature of the columns
 (def β (/ π 36))                        ; curvature of the rows
@@ -1171,10 +1171,10 @@
    ; translate this
    (hull (cfthumb-ml-place  thumb-post-tr)
          (cfthumb-ml-place  thumb-post-tl)
-         (key-place  1 3 web-post-bl)
-         (key-place  1 3 web-post-br)
-         (key-place  0 3 (translate [6 0 0] web-post-bl))
-         (key-place  0 3 web-post-br)
+         (key-place  1 (dec lastrow) web-post-bl)
+         (key-place  1 (dec lastrow) web-post-br)
+         (key-place  0 (dec lastrow) (translate [6 0 0] web-post-bl))
+         (key-place  0 (dec lastrow) web-post-br)
          (cfthumb-ml-place  thumb-post-tl)
          ;; (cfthumb-bl-place  thumb-post-tr)
          ;; (cfthumb-bl-place  thumb-post-tl)
@@ -1195,14 +1195,14 @@
    (hull (cfthumb-tl-place  web-post-tl)
          (cfthumb-tl-place  web-post-tr)
          (cfthumb-tl-place  (translate [3.6 0 -8] web-post-tr))
-         (key-place  2 3 (translate [0 -1 0] web-post-bl))
-         (key-place  2 3 (translate [0 -1 0] web-post-br))
+         (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-bl))
+         (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-br))
          )
 
    (hull (cfthumb-bl-place  thumb-post-tl)
          (cfthumb-bl-place  (translate [2 9 -7] thumb-post-tl))
-         (key-place  0 3 web-post-tl)
-         (key-place  0 3 web-post-bl)
+         (key-place  0 (dec lastrow) web-post-tl)
+         (key-place  0 (dec lastrow) web-post-bl)
          )
 
 
