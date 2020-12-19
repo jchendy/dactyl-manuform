@@ -6,7 +6,6 @@
 
 .lein-*
 *.gcode
-*.scad
 /target
 *.stl
 *.ai
