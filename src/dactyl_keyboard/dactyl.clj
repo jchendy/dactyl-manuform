@@ -14,14 +14,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ; v7
 
-(def nrows 4)
-(def ncols 5)
+(def nrows 5)
+(def ncols 6)
 
 (def α (/ π 12))                        ; curvature of the columns
 (def β (/ π 36))                        ; curvature of the rows
 (def centerrow (- nrows 3))             ; controls front-back tilt
 (def centercol 4)                       ; controls left-right tilt / tenting (higher number is more tenting)
-(def tenting-angle (/ π 12))            ; or, change this for more precise tenting control
+(def tenting-angle (/ π 18))            ; or, change this for more precise tenting control
 
 (def pinky-15u false)                   ; controls whether the outer column uses 1.5u keys
 (def first-15u-row 0)                   ; controls which should be the first row to have 1.5u keys on the outer column
@@ -29,7 +29,7 @@
 
 (def extra-row false)                   ; adds an extra bottom row to the outer columns
 (def inner-column false)                ; adds an extra inner column (two less rows than nrows)
-(def thumb-style "cf")                ; toggles between "default", "mini", and "cf" thumb cluster
+(def thumb-style "hudge")                ; toggles between "default", "mini", and "hudge" thumb cluster
 
 (def column-style :standard)
 
@@ -56,9 +56,9 @@
 ;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
 ;;           :else [0 0 0])))
 
-(def thumb-offsets [22 -5.25 -1]) ; cf default [6 -3 7]
+(def thumb-offsets [22 -5.25 -6]) ; hudge default [6 -3 7]
 
-(def keyboard-z-offset 7)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
+(def keyboard-z-offset 5)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
 (def extra-width 2.5)                   ; extra space between the base of keys; original= 2
 (def extra-height 1.0)                  ; original= 0.5
@@ -792,133 +792,133 @@
        (key-place (+ innercol-offset 4) cornerrow web-post-bl))))))
 
 ;;;;;;;;;;;;;;;;
-;; cf Thumb ;;
+;; hudge Thumb ;;
 ;;;;;;;;;;;;;;;;
 
-(defn cfthumb-tl-place [shape]
+(defn hudgethumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -65) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-11.5 -2.8 11.5])))
-(defn cfthumb-tr-place [shape]
+(defn hudgethumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
        (rotate (deg2rad -55) [0 1 0])
-       (rotate (deg2rad  10) [0 0 1])
+       (rotate (deg2rad  0) [0 0 1])
        (translate thumborigin)
-       (translate [-5.5 -27 7.5])))
-(defn cfthumb-ml-place [shape]
+       (translate [-6.5 -27 7.5])))
+(defn hudgethumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-33 -9.8 -6.5])))
-(defn cfthumb-mr-place [shape]
+(defn hudgethumb-mr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
        (rotate (deg2rad -20) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-26.7 -34 -9.3])))
-(defn cfthumb-bl-place [shape]
+(defn hudgethumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   40) [1 0 0])
-       (rotate (deg2rad 35) [0 1 0])
+       (rotate (deg2rad 45) [0 1 0])
        (rotate (deg2rad  15) [0 0 1])
        (translate thumborigin)
-       (translate [-64.5 0 1])))
-(defn cfthumb-br-place [shape]
+       (translate [-63.5 0 7])))
+(defn hudgethumb-br-place [shape]
   (->> shape
        (rotate (deg2rad   -15) [1 0 0])
-       (rotate (deg2rad 35) [0 1 0])
+       (rotate (deg2rad 45) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-61 -30 -7])))
+       (translate [-61 -30 -2])))
 
-(defn cfthumb-1x-layout [shape]
+(defn hudgethumb-1x-layout [shape]
   (union
-   (cfthumb-tr-place (rotate (/ π 2) [0 0 0] shape))
-   (cfthumb-mr-place shape)
-   (cfthumb-br-place shape)
-   (cfthumb-bl-place shape)
-   (cfthumb-ml-place shape)
-   (cfthumb-tl-place (rotate (/ π 2) [0 0 0] shape))))
+   (hudgethumb-tr-place (rotate (/ π 2) [0 0 0] shape))
+   (hudgethumb-mr-place shape)
+   (hudgethumb-br-place shape)
+   (hudgethumb-bl-place shape)
+   (hudgethumb-ml-place shape)
+   (hudgethumb-tl-place (rotate (/ π 2) [0 0 0] shape))))
 
-(defn cfthumb-15x-layout [shape]
+(defn hudgethumb-15x-layout [shape]
   )
 
-(def cfthumbcaps
+(def hudgethumbcaps
   (union
-   (cfthumb-1x-layout (sa-cap 1))
-   (cfthumb-15x-layout (rotate (/ π 2) [0 0 1] (sa-cap 1.5)))))
+   (hudgethumb-1x-layout (sa-cap 1))
+   (hudgethumb-15x-layout (rotate (/ π 2) [0 0 1] (sa-cap 1.5)))))
 
-(def cfthumbcaps-fill
+(def hudgethumbcaps-fill
   (union
-   (cfthumb-1x-layout keyhole-fill)
-   (cfthumb-15x-layout (rotate (/ π 2) [0 0 1] keyhole-fill))))
+   (hudgethumb-1x-layout keyhole-fill)
+   (hudgethumb-15x-layout (rotate (/ π 2) [0 0 1] keyhole-fill))))
 
-(def cfthumb
+(def hudgethumb
   (union
-   (cfthumb-1x-layout single-plate)
-   (cfthumb-15x-layout larger-plate-half)
-   (cfthumb-15x-layout single-plate)))
+   (hudgethumb-1x-layout single-plate)
+   (hudgethumb-15x-layout larger-plate-half)
+   (hudgethumb-15x-layout single-plate)))
 
-(def cfthumb-connectors
+(def hudgethumb-connectors
   (union
 
    (triangle-hulls    ; top two
-    (cfthumb-tl-place web-post-tl)
-    (cfthumb-tl-place web-post-bl)
-    (cfthumb-ml-place web-post-tr)
-    (cfthumb-ml-place web-post-br))
+    (hudgethumb-tl-place web-post-tl)
+    (hudgethumb-tl-place web-post-bl)
+    (hudgethumb-ml-place web-post-tr)
+    (hudgethumb-ml-place web-post-br))
    (triangle-hulls
-    (cfthumb-ml-place thumb-post-tl)
-    (cfthumb-ml-place web-post-bl)
-    (cfthumb-bl-place thumb-post-tr)
-    (cfthumb-bl-place web-post-br))
+    (hudgethumb-ml-place thumb-post-tl)
+    (hudgethumb-ml-place web-post-bl)
+    (hudgethumb-bl-place thumb-post-tr)
+    (hudgethumb-bl-place web-post-br))
    (triangle-hulls
-    (cfthumb-ml-place thumb-post-tl)
-    (cfthumb-ml-place web-post-bl)
-    (cfthumb-bl-place thumb-post-tr)
-    (cfthumb-bl-place web-post-br))
+    (hudgethumb-ml-place thumb-post-tl)
+    (hudgethumb-ml-place web-post-bl)
+    (hudgethumb-bl-place thumb-post-tr)
+    (hudgethumb-bl-place web-post-br))
    (triangle-hulls    ; bottom two
-    (cfthumb-br-place web-post-tr)
-    (cfthumb-br-place web-post-br)
-    (cfthumb-mr-place web-post-tl)
-    (cfthumb-mr-place web-post-bl))
+    (hudgethumb-br-place web-post-tr)
+    (hudgethumb-br-place web-post-br)
+    (hudgethumb-mr-place web-post-tl)
+    (hudgethumb-mr-place web-post-bl))
    (triangle-hulls
-    (cfthumb-mr-place web-post-tr)
-    (cfthumb-mr-place web-post-br)
-    (cfthumb-tr-place web-post-tl)
-    (cfthumb-tr-place web-post-bl))
+    (hudgethumb-mr-place web-post-tr)
+    (hudgethumb-mr-place web-post-br)
+    (hudgethumb-tr-place web-post-tl)
+    (hudgethumb-tr-place web-post-bl))
    (triangle-hulls
-    (cfthumb-tr-place web-post-br)
-    (cfthumb-tr-place web-post-bl)
-    (cfthumb-mr-place web-post-br))
+    (hudgethumb-tr-place web-post-br)
+    (hudgethumb-tr-place web-post-bl)
+    (hudgethumb-mr-place web-post-br))
    (triangle-hulls    ; between top row and bottom row
-    (cfthumb-br-place web-post-tl)
-    (cfthumb-bl-place web-post-bl)
-    (cfthumb-br-place web-post-tr)
-    (cfthumb-bl-place web-post-br)
-    (cfthumb-mr-place web-post-tl)
-    (cfthumb-ml-place web-post-bl)
-    (cfthumb-mr-place web-post-tr)
-    (cfthumb-ml-place web-post-br)
-    (cfthumb-tr-place web-post-tl)
-    (cfthumb-tl-place web-post-bl)
-    (cfthumb-tr-place web-post-tr)
-    (cfthumb-tl-place web-post-br))
+    (hudgethumb-br-place web-post-tl)
+    (hudgethumb-bl-place web-post-bl)
+    (hudgethumb-br-place web-post-tr)
+    (hudgethumb-bl-place web-post-br)
+    (hudgethumb-mr-place web-post-tl)
+    (hudgethumb-ml-place web-post-bl)
+    (hudgethumb-mr-place web-post-tr)
+    (hudgethumb-ml-place web-post-br)
+    (hudgethumb-tr-place web-post-tl)
+    (hudgethumb-tl-place web-post-bl)
+    (hudgethumb-tr-place web-post-tr)
+    (hudgethumb-tl-place web-post-br))
    (triangle-hulls    ; top two to the main keyboard, starting on the left
-    ;; (cfthumb-ml-place thumb-post-tl)
+    ;; (hudgethumb-ml-place thumb-post-tl)
     ;; (key-place (+ innercol-offset 0) cornerrow web-post-bl)
-    ;; (cfthumb-ml-place thumb-post-tr)
+    ;; (hudgethumb-ml-place thumb-post-tr)
     ;; (key-place (+ innercol-offset 0) cornerrow web-post-br)
-    (cfthumb-tl-place web-post-tl)
+    (hudgethumb-tl-place web-post-tl)
     (key-place (+ innercol-offset 1) cornerrow web-post-bl)
-    ;; (cfthumb-tl-place web-post-tr)
+    ;; (hudgethumb-tl-place web-post-tr)
     (key-place (+ innercol-offset 1) cornerrow web-post-br)
 
     ;; bad deep triangles
@@ -926,26 +926,26 @@
     ;; ;; (
     ;; ;; (key-place (+ innercol-offset 3)  (- lastrow 1) web-post-tl)
     ;; (key-place (+ innercol-offset 3) (- lastrow 1) web-post-br)
-    ;; (cfthumb-tl-place web-post-tr)
+    ;; (hudgethumb-tl-place web-post-tr)
     ;; (key-place (+ innercol-offset 3) (- lastrow 1) web-post-br)
-    ;; (cfthumb-tl-place web-post-br)
+    ;; (hudgethumb-tl-place web-post-br)
     ;; (key-place (+ innercol-offset 3) (- lastrow 1) web-post-br)
     ;; (key-place (+ innercol-offset 4) (- lastrow 1) web-post-bl)
-    ;; (cfthumb-tl-place web-post-br)
-    ;; (cfthumb-tr-place web-post-tr)
+    ;; (hudgethumb-tl-place web-post-br)
+    ;; (hudgethumb-tr-place web-post-tr)
     ;; ;;   )
     ;; ;; )
     (if (not remove-partial-row)
     (
      (key-place (+ innercol-offset 2) lastrow web-post-tl)
       (key-place (+ innercol-offset 2) lastrow web-post-bl)
-      (cfthumb-tl-place web-post-tr)
+      (hudgethumb-tl-place web-post-tr)
       (key-place (+ innercol-offset 2) lastrow web-post-bl)
-      (cfthumb-tl-place web-post-br)
+      (hudgethumb-tl-place web-post-br)
       (key-place (+ innercol-offset 2) lastrow web-post-br)
       (key-place (+ innercol-offset 3) lastrow web-post-bl)
-      (cfthumb-tl-place web-post-br)
-      (cfthumb-tr-place web-post-tr)
+      (hudgethumb-tl-place web-post-br)
+      (hudgethumb-tr-place web-post-tr)
       )
     )
 
@@ -966,8 +966,8 @@
       (key-place (+ innercol-offset 3) lastrow web-post-bl)))
    ; jhendy - idk 
    ;; (triangle-hulls
-   ;;  (cfthumb-tr-place web-post-br)
-   ;;  (cfthumb-tr-place web-post-tr)
+   ;;  (hudgethumb-tr-place web-post-br)
+   ;;  (hudgethumb-tr-place web-post-tr)
    ;;  (key-place (+ innercol-offset 3) lastrow web-post-bl))
    (triangle-hulls
     (key-place (+ innercol-offset 1) cornerrow web-post-br)
@@ -1013,11 +1013,11 @@
   (def thumbcaps-type thumbcaps)
   (def thumbcaps-fill-type thumbcaps-fill))
 
-(when (= thumb-style "cf")
-  (def thumb-type cfthumb)
-  (def thumb-connector-type cfthumb-connectors)
-  (def thumbcaps-type cfthumbcaps)
-  (def thumbcaps-fill-type cfthumbcaps-fill))
+(when (= thumb-style "hudge")
+  (def thumb-type hudgethumb)
+  (def thumb-connector-type hudgethumb-connectors)
+  (def thumbcaps-type hudgethumbcaps)
+  (def thumbcaps-fill-type hudgethumbcaps-fill))
 
 (when (= thumb-style "mini")
   (def thumb-type minithumb)
@@ -1114,24 +1114,24 @@
            (key-wall-brace lastcol extra-cornerrow 0 -1 web-post-br lastcol extra-cornerrow 1 0 web-post-br)
            )))
 
-(def cf-thumb-wall
+(def hudge-thumb-wall
   (union
    ; thumb walls
-   (wall-brace cfthumb-mr-place  0 -1 web-post-br cfthumb-tr-place  0 -1 web-post-br)
-   (wall-brace cfthumb-mr-place  0 -1 web-post-br cfthumb-mr-place  0 -1.15 web-post-bl)
-   (wall-brace cfthumb-br-place  0 -1 web-post-br cfthumb-br-place  0 -1 web-post-bl)
-   (wall-brace cfthumb-bl-place -0.3  1 thumb-post-tr cfthumb-bl-place  0  1 thumb-post-tl)
-   (wall-brace cfthumb-br-place -1  0 web-post-tl cfthumb-br-place -1  0 web-post-bl)
-   (wall-brace cfthumb-bl-place -1  0 thumb-post-tl cfthumb-bl-place -1  0 web-post-bl)
-   ; cfthumb corners
-   (wall-brace cfthumb-br-place -1  0 web-post-bl cfthumb-br-place  0 -1 web-post-bl)
-   (wall-brace cfthumb-bl-place -1  0 thumb-post-tl cfthumb-bl-place  0  1 thumb-post-tl)
-   ; cfthumb tweeners
-   (wall-brace cfthumb-mr-place  0 -1.15 web-post-bl cfthumb-br-place  0 -1 web-post-br)
-   (wall-brace cfthumb-bl-place -1  0 web-post-bl cfthumb-br-place -1  0 web-post-tl)
+   (wall-brace hudgethumb-mr-place  0 -1 web-post-br hudgethumb-tr-place  0 -1 web-post-br)
+   (wall-brace hudgethumb-mr-place  0 -1 web-post-br hudgethumb-mr-place  0 -1.15 web-post-bl)
+   (wall-brace hudgethumb-br-place  0 -1 web-post-br hudgethumb-br-place  0 -1 web-post-bl)
+   (wall-brace hudgethumb-bl-place -0.3  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
+   (wall-brace hudgethumb-br-place -1  0 web-post-tl hudgethumb-br-place -1  0 web-post-bl)
+   (wall-brace hudgethumb-bl-place -1  0 thumb-post-tl hudgethumb-bl-place -1  0 web-post-bl)
+   ; hudgethumb corners
+   (wall-brace hudgethumb-br-place -1  0 web-post-bl hudgethumb-br-place  0 -1 web-post-bl)
+   (wall-brace hudgethumb-bl-place -1  0 thumb-post-tl hudgethumb-bl-place  0  1 thumb-post-tl)
+   ; hudgethumb tweeners
+   (wall-brace hudgethumb-mr-place  0 -1.15 web-post-bl hudgethumb-br-place  0 -1 web-post-br)
+   (wall-brace hudgethumb-bl-place -1  0 web-post-bl hudgethumb-br-place -1  0 web-post-tl)
    ; jhendy modified
-   ;; (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 0))  0 -1 web-post)
-   ;; (wall-brace cfthumb-tr-place 0 -1 web-post (partial key-place (+ innercol-offset 3) (- lastrow 0)) -1 0 web-post)
+   ;; (wall-brace hudgethumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 0))  0 -1 web-post)
+   ;; (wall-brace hudgethumb-tr-place 0 -1 web-post (partial key-place (+ innercol-offset 3) (- lastrow 0)) -1 0 web-post)
    ;; (hull (key-place 0 y web-post-tl)
    ;;       (key-place 0 y web-post-bl)
    ;;       (left-key-place y  1 web-post)
@@ -1141,116 +1141,116 @@
    ;;                                                             (key-place 0 y web-post-bl)
    ;;                                                             (left-key-place y  1 web-post)
    ;;                                                             (left-key-place y -1 web-post))))
-   ;; (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1)  0 -1 web-post-bl)
+   ;; (wall-brace hudgethumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1)  0 -1 web-post-bl)
    ; jhendy next two are new
-   ;; (wall-brace cfthumb-tl-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) lastrow)  0 -1 web-post-bl)
-   ;; (wall-brace cfthumb-tl-place  0.5 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  0 -1 web-post-bl)
-   ;; (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1)  0 -1 web-post-bl)
+   ;; (wall-brace hudgethumb-tl-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) lastrow)  0 -1 web-post-bl)
+   ;; (wall-brace hudgethumb-tl-place  0.5 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  0 -1 web-post-bl)
+   ;; (wall-brace hudgethumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1)  0 -1 web-post-bl)
    ; jhendy put the next one back
-   ;; (wall-brace cfthumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  1 -1 web-post-br)
-   ;; (wall-brace cfthumb-tl-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  0 -1 web-post-bl)
-   ;; (hull (cfthumb-tl-place  web-post-tr)
-   ;;       (cfthumb-tl-place  web-post-br)
+   ;; (wall-brace hudgethumb-tr-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  1 -1 web-post-br)
+   ;; (wall-brace hudgethumb-tl-place  0 -1 web-post-br (partial key-place (+ innercol-offset 3) (- lastrow 1))  0 -1 web-post-bl)
+   ;; (hull (hudgethumb-tl-place  web-post-tr)
+   ;;       (hudgethumb-tl-place  web-post-br)
    ;;       (key-place  3 5 web-post)
    ;;       (key-place  3 6 web-post))
    ; jhendy hack walls
-   ;; (wall-brace cfthumb-tl-place  0 0 web-post-br (partial key-place 2 5)  0 0 web-post-br)
-   (wall-brace cfthumb-tr-place  0.5 0 web-post-br cfthumb-tr-place  0.5 0 web-post-tr)
-   (wall-brace cfthumb-tl-place  0.5 0 web-post-br cfthumb-tl-place  0.5 0 web-post-tr)
+   ;; (wall-brace hudgethumb-tl-place  0 0 web-post-br (partial key-place 2 5)  0 0 web-post-br)
+   (wall-brace hudgethumb-tr-place  0.5 0 web-post-br hudgethumb-tr-place  0.5 0 web-post-tr)
+   (wall-brace hudgethumb-tl-place  0.5 0 web-post-br hudgethumb-tl-place  0.5 0 web-post-tr)
    ; tweener
-   (wall-brace cfthumb-tl-place  0.5 0 web-post-br cfthumb-tr-place  0.5 0 web-post-tr)
+   (wall-brace hudgethumb-tl-place  0.5 0 web-post-br hudgethumb-tr-place  0.5 0 web-post-tr)
    ; corner
-   (wall-brace cfthumb-tr-place 0.5 0 web-post-br cfthumb-tr-place  0 -1 web-post-br)
+   (wall-brace hudgethumb-tr-place 0.5 0 web-post-br hudgethumb-tr-place  0 -1 web-post-br)
 
    ; next three are bad triangles
-   (hull (cfthumb-bl-place  web-post-tr)
-         (cfthumb-bl-place  web-post-tl)
-         (cfthumb-bl-place  thumb-post-tr)
-         (cfthumb-bl-place  thumb-post-tl)
+   (hull (hudgethumb-bl-place  web-post-tr)
+         (hudgethumb-bl-place  web-post-tl)
+         (hudgethumb-bl-place  thumb-post-tr)
+         (hudgethumb-bl-place  thumb-post-tl)
          )
    ; translate this
-   (hull (cfthumb-ml-place  thumb-post-tr)
-         (cfthumb-ml-place  thumb-post-tl)
+   (hull (hudgethumb-ml-place  thumb-post-tr)
+         (hudgethumb-ml-place  thumb-post-tl)
          (key-place  1 (dec lastrow) web-post-bl)
          (key-place  1 (dec lastrow) web-post-br)
          (key-place  0 (dec lastrow) (translate [6 0 0] web-post-bl))
          (key-place  0 (dec lastrow) web-post-br)
-         (cfthumb-ml-place  thumb-post-tl)
-         ;; (cfthumb-bl-place  thumb-post-tr)
-         ;; (cfthumb-bl-place  thumb-post-tl)
+         (hudgethumb-ml-place  thumb-post-tl)
+         ;; (hudgethumb-bl-place  thumb-post-tr)
+         ;; (hudgethumb-bl-place  thumb-post-tl)
          )
 
-   (hull (cfthumb-ml-place  thumb-post-tr)
-         (cfthumb-ml-place  thumb-post-tl)
-         (cfthumb-ml-place  web-post-tl)
-         (cfthumb-ml-place  web-post-tr)
+   (hull (hudgethumb-ml-place  thumb-post-tr)
+         (hudgethumb-ml-place  thumb-post-tl)
+         (hudgethumb-ml-place  web-post-tl)
+         (hudgethumb-ml-place  web-post-tr)
          )
 
-   (hull (cfthumb-ml-place  web-post-tr)
-         (cfthumb-ml-place  thumb-post-tr)
-         (cfthumb-tl-place  web-post-tl)
-         ;; (cfthumb-tl-place  thumb-post-tl)
+   (hull (hudgethumb-ml-place  web-post-tr)
+         (hudgethumb-ml-place  thumb-post-tr)
+         (hudgethumb-tl-place  web-post-tl)
+         ;; (hudgethumb-tl-place  thumb-post-tl)
          )
 
-   (hull (cfthumb-tl-place  web-post-tl)
-         (cfthumb-tl-place  web-post-tr)
-         (cfthumb-tl-place  (translate [3.6 0 -8] web-post-tr))
+   (hull (hudgethumb-tl-place  web-post-tl)
+         (hudgethumb-tl-place  web-post-tr)
+         (hudgethumb-tl-place  (translate [3.6 0 -8] web-post-tr))
          (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-bl))
          (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-br))
          )
 
-   (hull (cfthumb-bl-place  thumb-post-tl)
-         (cfthumb-bl-place  (translate [2 9 -7] thumb-post-tl))
+   (hull (hudgethumb-bl-place  thumb-post-tl)
+         (hudgethumb-bl-place  (translate [2 9 -7] thumb-post-tl))
          (key-place  0 (dec lastrow) web-post-tl)
          (key-place  0 (dec lastrow) web-post-bl)
          )
 
 
    ; end jhendy hack
-   ; clunky bit on the top left cfthumb connection  (normal connectors don't work well)
+   ; clunky bit on the top left hudgethumb connection  (normal connectors don't work well)
    ;; (hull
    ;;  (key-place 0 3 web-post-bl)
    ;;  (key-place 0 3 web-post-br)
-   ;;  (cfthumb-ml-place web-post-tl)
-   ;;  (cfthumb-ml-place web-post-tr)
+   ;;  (hudgethumb-ml-place web-post-tl)
+   ;;  (hudgethumb-ml-place web-post-tr)
    ;;  )
    ;; (hull
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate2 -1 0) web-post))
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate3 -1 0) web-post))
    ;;  (key-place 0 3 web-post-bl)
    ;;  (key-place 0 3 web-post-br)
-   ;;  (cfthumb-ml-place web-post-tl)
-   ;;  (cfthumb-bl-place web-post-tr)
-   ;;  (cfthumb-bl-place web-post-tl)
+   ;;  (hudgethumb-ml-place web-post-tl)
+   ;;  (hudgethumb-bl-place web-post-tr)
+   ;;  (hudgethumb-bl-place web-post-tl)
    ;;  )
    ;; (bottom-hull
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate2 -1 0) web-post))
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate3 -1 0) web-post))
-   ;;  (cfthumb-bl-place (translate (wall-locate2 -0.3 1) thumb-post-tr))
-   ;;  (cfthumb-bl-place (translate (wall-locate3 -0.3 1) thumb-post-tr)))
+   ;;  (hudgethumb-bl-place (translate (wall-locate2 -0.3 1) thumb-post-tr))
+   ;;  (hudgethumb-bl-place (translate (wall-locate3 -0.3 1) thumb-post-tr)))
    ;; (hull
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate2 -1 0) web-post))
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate3 -1 0) web-post))
-   ;;  (cfthumb-bl-place (translate (wall-locate2 -0.3 1) thumb-post-tr))
-   ;;  (cfthumb-bl-place (translate (wall-locate3 -0.3 1) thumb-post-tr))
-   ;;  (cfthumb-ml-place thumb-post-tl))
+   ;;  (hudgethumb-bl-place (translate (wall-locate2 -0.3 1) thumb-post-tr))
+   ;;  (hudgethumb-bl-place (translate (wall-locate3 -0.3 1) thumb-post-tr))
+   ;;  (hudgethumb-ml-place thumb-post-tl))
    ;; (hull
    ;;  (left-key-place (- cornerrow innercol-offset) -1 web-post)
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate1 -1 0) web-post))
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate2 -1 0) web-post))
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate3 -1 0) web-post))
-   ;;  (cfthumb-ml-place thumb-post-tl))
+   ;;  (hudgethumb-ml-place thumb-post-tl))
    ;; (hull
    ;;  (left-key-place (- cornerrow innercol-offset) -1 web-post)
    ;;  (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate1 -1 0) web-post))
    ;;  (key-place 0 (- cornerrow innercol-offset) web-post-bl)
-   ;;  (cfthumb-ml-place thumb-post-tl))
+   ;;  (hudgethumb-ml-place thumb-post-tl))
    (hull
-    (cfthumb-bl-place thumb-post-tr)
-    (cfthumb-bl-place (translate (wall-locate1 -0.3 1) thumb-post-tr))
-    (cfthumb-bl-place (translate (wall-locate2 -0.3 1) thumb-post-tr))
-    (cfthumb-bl-place (translate (wall-locate3 -0.3 1) thumb-post-tr))
-    (cfthumb-ml-place thumb-post-tl))
+    (hudgethumb-bl-place thumb-post-tr)
+    (hudgethumb-bl-place (translate (wall-locate1 -0.3 1) thumb-post-tr))
+    (hudgethumb-bl-place (translate (wall-locate2 -0.3 1) thumb-post-tr))
+    (hudgethumb-bl-place (translate (wall-locate3 -0.3 1) thumb-post-tr))
+    (hudgethumb-ml-place thumb-post-tl))
    ; connectors below the inner column to the thumb & second column
    (if inner-column
      (union
@@ -1269,7 +1269,7 @@
       (hull
        (key-place 0 (dec cornerrow) web-post-bl)
        (key-place 1 cornerrow web-post-bl)
-       (cfthumb-ml-place thumb-post-tl))))))
+       (hudgethumb-ml-place thumb-post-tl))))))
 
 (def mini-thumb-wall
   (union
@@ -1408,7 +1408,7 @@
 (def thumb-wall-type
   (case thumb-style
     "default" default-thumb-wall
-    "cf" cf-thumb-wall
+    "hudge" hudge-thumb-wall
     "mini" mini-thumb-wall))
 
 (def front-wall-row (if remove-partial-row (dec lastrow)lastrow))
@@ -1457,17 +1457,79 @@
     6 -5.07))
 
 ; Cutout for controller/trrs jack holder
+
 (def usb-holder-ref (key-position 0 0 (map - (wall-locate2  0  -1) [0 (/ mount-height 2) 0])))
-(def usb-holder-position (map + [(+ 18.8 holder-offset) 18.7 1.3] [(first usb-holder-ref) (second usb-holder-ref) 2]))
-(def usb-holder-cube   (cube 28.666 30 19.8))
-(def usb-holder-space  (translate (map + usb-holder-position [-1.5 (* -1 wall-thickness) 6.6]) usb-holder-cube))
-(def usb-holder-notch  (translate (map + usb-holder-position [-1.5 (+ 4.4 notch-offset) 6.6]) (cube 31.366 1.3 19.8)))
+
+(def usb-holder-position (map + [20 19.3 0] [(first usb-holder-ref) (second usb-holder-ref) 2]))
+(def usb-holder-cube   (cube 15 12 2))
+(def usb-holder-space  (translate (map + usb-holder-position [0 (* -1 wall-thickness) 1]) usb-holder-cube))
+(def usb-holder-holder (translate usb-holder-position (cube 19 12 4)))
+
+(def usb-jack (translate (map + usb-holder-position [0 10 3]) (cube 12 20 5)))
+
+(def pro-micro-position (map + (key-position 0 1 (wall-locate3 -1 0)) [-6 2 -15]))
+(def pro-micro-space-size [4 10 12]) ; z has no wall;
+(def pro-micro-wall-thickness 2)
+(def pro-micro-holder-size [(+ pro-micro-wall-thickness (first pro-micro-space-size)) (+ pro-micro-wall-thickness (second pro-micro-space-size)) (last pro-micro-space-size)])
+(def pro-micro-space
+  (->> (cube (first pro-micro-space-size) (second pro-micro-space-size) (last pro-micro-space-size))
+       (translate [(- (first pro-micro-position) (/ pro-micro-wall-thickness 2)) (- (second pro-micro-position) (/ pro-micro-wall-thickness 2)) (last pro-micro-position)])))
+(def pro-micro-holder
+  (difference
+   (->> (cube (first pro-micro-holder-size) (second pro-micro-holder-size) (last pro-micro-holder-size))
+        (translate [(first pro-micro-position) (second pro-micro-position) (last pro-micro-position)]))
+   pro-micro-space))
+
+(def trrs-holder-size [6.2 10 2]) ; trrs jack PJ-320A
+(def trrs-holder-hole-size [6.2 10 6]) ; trrs jack PJ-320A
+(def trrs-holder-position  (map + usb-holder-position [-12.6 0 0]))
+(def trrs-holder-thickness 2)
+(def trrs-holder-thickness-2x (* 2 trrs-holder-thickness))
+(def trrs-holder-radius 3.55)
+(def trrs-holder
+  (union
+   (->> (cube (+ (first trrs-holder-size) trrs-holder-thickness-2x) (+ trrs-holder-thickness (second trrs-holder-size)) (+ (last trrs-holder-size) trrs-holder-thickness))
+        (translate [(first trrs-holder-position) (second trrs-holder-position) (/ (+ (last trrs-holder-size) trrs-holder-thickness) 2)]))))
+(def trrs-holder-hole
+  (union
+
+  ; circle trrs hole
+   (->>
+    (->> (binding [*fn* 30] (cylinder trrs-holder-radius 20))) 
+    (rotate (deg2rad  90) [1 0 0])
+    (translate [(first trrs-holder-position) (+ (second trrs-holder-position) (/ (+ (second trrs-holder-size) trrs-holder-thickness) 2)) (+ 3 (/ (+ (last trrs-holder-size) trrs-holder-thickness) 2))])) ;1.5 padding
+
+  ; rectangular trrs holder
+   (->> (apply cube trrs-holder-hole-size) (translate [(first trrs-holder-position) (+ (/ trrs-holder-thickness -2) (second trrs-holder-position)) (+ (/ (last trrs-holder-hole-size) 2) trrs-holder-thickness)]))))
+
+(def reset-holder-size [6.2 10 2]) 
+(def reset-holder-hole-size [6.2 10 6]) 
+(def reset-holder-position  (map + usb-holder-position [-12.6 0 12]))
+(def reset-holder-thickness 2)
+(def reset-holder-thickness-2x (* 2 reset-holder-thickness))
+(def reset-holder-radius 3.55)
+(def reset-holder
+  (union
+   (->> (cube (+ (first reset-holder-size) reset-holder-thickness-2x) (+ reset-holder-thickness (second reset-holder-size)) (+ (last reset-holder-size) reset-holder-thickness))
+        (translate [(first reset-holder-position) (second reset-holder-position) (/ (+ (last reset-holder-size) reset-holder-thickness) 2)]))))
+(def reset-holder-hole
+  (union
+
+  ; circle reset hole
+   (->>
+    (->> (binding [*fn* 30] (cylinder reset-holder-radius 20))) ; 5mm reset jack
+    (rotate (deg2rad  90) [1 0 0])
+    (translate [(first reset-holder-position) (+ (second reset-holder-position) (/ (+ (second reset-holder-size) reset-holder-thickness) 2)) (+ (last reset-holder-position) (/ (+ (last reset-holder-size) reset-holder-thickness) 2))])) ;1.5 padding
+
+  ; rectangular reset holder
+   (->> (apply cube reset-holder-hole-size) (translate [(first reset-holder-position) (+ (/ reset-holder-thickness -2) (second reset-holder-position)) (+ (/ (last reset-holder-hole-size) 2) reset-holder-thickness)]))))
 
 ; Screw insert definition & position
 (defn screw-insert-shape [bottom-radius top-radius height]
   (union
    (->> (binding [*fn* 30]
-                 (cylinder [bottom-radius top-radius] height)))))
+          (cylinder [bottom-radius top-radius] height)))
+   (translate [0 0 (/ height 2)] (->> (binding [*fn* 30] (sphere top-radius))))))
 
 (defn screw-insert [column row bottom-radius top-radius height offset]
   (let [shift-right   (= column lastcol)
@@ -1475,63 +1537,31 @@
         shift-up      (and (not (or shift-right shift-left)) (= row 0))
         shift-down    (and (not (or shift-right shift-left)) (>= row lastrow))
         position      (if shift-up     (key-position column row (map + (wall-locate2  0  1) [0 (/ mount-height 2) 0]))
-                        (if shift-down  (key-position column row (map - (wall-locate2  0 -2.5) [0 (/ mount-height 2) 0]))
-                          (if shift-left (map + (left-key-position row 0) (wall-locate3 -1 0))
-                            (key-position column row (map + (wall-locate2  1  0) [(/ mount-width 2) 0 0])))))]
+                          (if shift-down  (key-position column row (map - (wall-locate2  0 -1) [0 (/ mount-height 2) 0]))
+                              (if shift-left (map + (left-key-position row 0) (wall-locate3 -1 0))
+                                  (key-position column row (map + (wall-locate2  1  0) [(/ mount-width 2) 0 0])))))]
     (->> (screw-insert-shape bottom-radius top-radius height)
          (translate (map + offset [(first position) (second position) (/ height 2)])))))
 
-; Offsets for the screw inserts dependent on extra-row & pinky-15u
-(when (and pinky-15u extra-row)
-    (def screw-offset-tr [1 7 0])
-    (def screw-offset-br [7 14 0]))
-(when (and pinky-15u (false? extra-row))
-    (def screw-offset-tr [1 7 0])
-    (def screw-offset-br [6.5 15.5 0]))
-(when (and (false? pinky-15u) extra-row)
-    (def screw-offset-tr [-3.5 6.5 0])
-    (def screw-offset-br [-3.5 -6.5 0]))
-(when (and (false? pinky-15u) (false? extra-row))
-    (def screw-offset-tr [-1 6.5 0])
-    (def screw-offset-br [-6 13 0]))
-    
-; Offsets for the screw inserts dependent on thumb-style & inner-column
-(when (and (= thumb-style "cf") inner-column)
-    (def screw-offset-bl [13 4 0])
-    (def screw-offset-bm [13 -7 0]))
-(when (and (= thumb-style "cf") (false? inner-column))
-    (def screw-offset-bl [-12 4 0])
-    (def screw-offset-bm [26 -9 0]))
-(when (and (= thumb-style "mini") inner-column)
-    (def screw-offset-bl [18 8 0])
-    (def screw-offset-bm [-1 -7 0]))
-(when (and (= thumb-style "mini") (false? inner-column))
-    (def screw-offset-bl [2 6 0])
-    (def screw-offset-bm [-1 -7 0]))
-(when (and (= thumb-style "default") inner-column)
-    (def screw-offset-bl [9 -6 0])
-    (def screw-offset-bm [8 -1 0]))
-(when (and (= thumb-style "default") (false? inner-column))
-    (def screw-offset-bl [-7.7 -8 0])
-    (def screw-offset-bm [8 -1 0]))
-
-         (defn screw-insert-all-shapes [bottom-radius top-radius height]
-  (union (screw-insert 0 0         bottom-radius top-radius height [6 6.5 0])
-         (screw-insert 0 lastrow   bottom-radius top-radius height screw-offset-bl)
-         (screw-insert lastcol lastrow  bottom-radius top-radius height screw-offset-br)
-         (screw-insert lastcol 0         bottom-radius top-radius height screw-offset-tr)
-         (screw-insert (+ 1 innercol-offset) lastrow         bottom-radius top-radius height screw-offset-bm)))
+(defn screw-insert-all-shapes [bottom-radius top-radius height]
+  (union (screw-insert 0 0         bottom-radius top-radius height [11 10 0])
+         (screw-insert 0 lastrow   bottom-radius top-radius height [0 0 0])
+        ;  (screw-insert lastcol lastrow  bottom-radius top-radius height [-5 13 0])
+        ;  (screw-insert lastcol 0         bottom-radius top-radius height [-3 6 0])
+         (screw-insert lastcol lastrow  bottom-radius top-radius height [0 12 0])
+         (screw-insert lastcol 0         bottom-radius top-radius height [0 7 0])
+         (screw-insert 1 lastrow         bottom-radius top-radius height [0 -16 0])))
 
 ; Hole Depth Y: 4.4
-(def screw-insert-height 6)
+(def screw-insert-height 4)
 
 ; Hole Diameter C: 4.1-4.4
-(def screw-insert-bottom-radius (/ 4.0 2))
-(def screw-insert-top-radius (/ 3.9 2))
+(def screw-insert-bottom-radius (/ 5.31 2))
+(def screw-insert-top-radius (/ 5.1 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 
 ; Wall Thickness W:\t1.65
-(def screw-insert-outers (screw-insert-all-shapes (+ screw-insert-bottom-radius 1.65) (+ screw-insert-top-radius 1.65) (+ screw-insert-height 1)))
+(def screw-insert-outers (screw-insert-all-shapes (+ screw-insert-bottom-radius 1.65) (+ screw-insert-top-radius 1.65) (+ screw-insert-height 1.5)))
 (def screw-insert-screw-holes  (screw-insert-all-shapes 1.7 1.7 350))
 
 ; Connectors between outer column and right wall when 1.5u keys are used
@@ -1588,12 +1618,16 @@
                      ; thumb-connector-type has the thing
                      thumb-connector-type
                      (difference (union case-walls
-                                        screw-insert-outers)
+                                        screw-insert-outers
+                                        pro-micro-holder
+                                        usb-holder-holder
+                                        trrs-holder
+                                        reset-holder)
                                  usb-holder-space
-                                 usb-holder-notch
-                                 screw-insert-holes)
-
-                     )
+                                 usb-jack
+                                 trrs-holder-hole
+                                 reset-holder-hole
+                                 screw-insert-holes))
                    (translate [0 0 -20] (cube 350 350 40))))
 
 (spit "things/right.scad"
