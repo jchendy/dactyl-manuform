@@ -26792,12 +26792,12 @@ difference () {
         cube ([15, 12, 2], center=true);
       }
       translate ([-55.335870366391305, 64.2121493850429, 7]) {
-        cube ([12, 20, 8], center=true);
+        cube ([12, 50, 8], center=true);
       }
       union () {
         translate ([-72.9358703663913, 60.212149385042906, 8]) {
           rotate (a=90.0, v=[1, 0, 0]) {
-            cylinder ($fn=30, h=20, r=5, center=true);
+            cylinder ($fn=30, h=20, r=4.8, center=true);
           }
         }
         translate ([-72.9358703663913, 53.212149385042906, 5]) {
