@@ -58,7 +58,7 @@
 
 (def thumb-offsets [22 -5.25 -6]) ; hudge default [6 -3 7]
 
-(def keyboard-z-offset 5)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
+(def keyboard-z-offset 3)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
 (def extra-width 2.5)                   ; extra space between the base of keys; original= 2
 (def extra-height 1.0)                  ; original= 0.5
@@ -808,7 +808,7 @@
        (rotate (deg2rad -55) [0 1 0])
        (rotate (deg2rad  0) [0 0 1])
        (translate thumborigin)
-       (translate [-6.5 -27 7.5])))
+       (translate [-6.4 -27 7.5])))
 (defn hudgethumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
@@ -818,11 +818,11 @@
        (translate [-33 -9.8 -6.5])))
 (defn hudgethumb-mr-place [shape]
   (->> shape
-       (rotate (deg2rad  -5) [1 0 0])
+       (rotate (deg2rad  -20) [1 0 0])
        (rotate (deg2rad -20) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-26.7 -34 -9.3])))
+       (translate [-26.9 -36 -7])))
 (defn hudgethumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   40) [1 0 0])
@@ -877,8 +877,14 @@
    (triangle-hulls
     (hudgethumb-ml-place thumb-post-tl)
     (hudgethumb-ml-place web-post-bl)
-    (hudgethumb-bl-place web-post-tr)
+    ;; (hudgethumb-bl-place web-post-tr)
     (hudgethumb-bl-place web-post-br))
+   (triangle-hulls
+    (hudgethumb-ml-place thumb-post-tl)
+    ;; (hudgethumb-ml-place web-post-bl)
+    (hudgethumb-bl-place web-post-tr)
+    (hudgethumb-bl-place web-post-br)
+    )
    (triangle-hulls    ; bottom two
     (hudgethumb-br-place web-post-tr)
     (hudgethumb-br-place web-post-br)
@@ -1372,12 +1378,12 @@
 
 (def usb-holder-ref (key-position 0 0 (map - (wall-locate2  0  -1) [0 (/ mount-height 2) 0])))
 
-(def usb-holder-position (map + [20 19.3 0] [(first usb-holder-ref) (second usb-holder-ref) 2]))
+(def usb-holder-position (map + [25 19.3 2] [(first usb-holder-ref) (second usb-holder-ref) 2]))
 (def usb-holder-cube   (cube 15 12 2))
 (def usb-holder-space  (translate (map + usb-holder-position [0 (* -1 wall-thickness) 1]) usb-holder-cube))
 (def usb-holder-holder (translate usb-holder-position (cube 19 12 4)))
 
-(def usb-jack (translate (map + usb-holder-position [0 10 3]) (cube 12 20 5)))
+(def usb-jack (translate (map + usb-holder-position [0 10 3]) (cube 12 20 8)))
 
 (def pro-micro-position (map + (key-position 0 1 (wall-locate3 -1 0)) [-6 2 -15]))
 (def pro-micro-space-size [4 10 12]) ; z has no wall;
@@ -1394,10 +1400,10 @@
 
 (def trrs-holder-size [6.2 10 2]) ; trrs jack PJ-320A
 (def trrs-holder-hole-size [6.2 10 6]) ; trrs jack PJ-320A
-(def trrs-holder-position  (map + usb-holder-position [-12.6 0 0]))
+(def trrs-holder-position  (map + usb-holder-position [-17.6 0 2]))
 (def trrs-holder-thickness 2)
 (def trrs-holder-thickness-2x (* 2 trrs-holder-thickness))
-(def trrs-holder-radius 3.55)
+(def trrs-holder-radius 5)
 (def trrs-holder
   (union
    (->> (cube (+ (first trrs-holder-size) trrs-holder-thickness-2x) (+ trrs-holder-thickness (second trrs-holder-size)) (+ (last trrs-holder-size) trrs-holder-thickness))
@@ -1409,14 +1415,14 @@
    (->>
     (->> (binding [*fn* 30] (cylinder trrs-holder-radius 20))) 
     (rotate (deg2rad  90) [1 0 0])
-    (translate [(first trrs-holder-position) (+ (second trrs-holder-position) (/ (+ (second trrs-holder-size) trrs-holder-thickness) 2)) (+ 3 (/ (+ (last trrs-holder-size) trrs-holder-thickness) 2))])) ;1.5 padding
+    (translate [(first trrs-holder-position) (+ (second trrs-holder-position) (/ (+ (second trrs-holder-size) trrs-holder-thickness) 2)) (+ (last trrs-holder-position) (/ (+ (last trrs-holder-size) trrs-holder-thickness) 2))])) ;1.5 padding
 
   ; rectangular trrs holder
    (->> (apply cube trrs-holder-hole-size) (translate [(first trrs-holder-position) (+ (/ trrs-holder-thickness -2) (second trrs-holder-position)) (+ (/ (last trrs-holder-hole-size) 2) trrs-holder-thickness)]))))
 
 (def reset-holder-size [6.2 10 2]) 
 (def reset-holder-hole-size [6.2 10 6]) 
-(def reset-holder-position  (map + usb-holder-position [-12.6 0 12]))
+(def reset-holder-position  (map + usb-holder-position [-17.6 0 13]))
 (def reset-holder-thickness 2)
 (def reset-holder-thickness-2x (* 2 reset-holder-thickness))
 (def reset-holder-radius 3.55)
@@ -1466,8 +1472,8 @@
 (def screw-insert-height 4)
 
 ; Hole Diameter C: 4.1-4.4
-(def screw-insert-bottom-radius (/ 5.31 2))
-(def screw-insert-top-radius (/ 5.1 2))
+(def screw-insert-bottom-radius (/ 5 2))
+(def screw-insert-top-radius (/ 5 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 
 ; Wall Thickness W:\t1.65
