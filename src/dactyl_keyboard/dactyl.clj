@@ -911,29 +911,10 @@
     (hudgethumb-tr-place web-post-tr)
     (hudgethumb-tl-place web-post-br))
    (triangle-hulls    ; top two to the main keyboard, starting on the left
-    ;; (hudgethumb-ml-place thumb-post-tl)
-    ;; (key-place (+ innercol-offset 0) cornerrow web-post-bl)
-    ;; (hudgethumb-ml-place thumb-post-tr)
-    ;; (key-place (+ innercol-offset 0) cornerrow web-post-br)
     (hudgethumb-tl-place web-post-tl)
-    (key-place (+ innercol-offset 1) cornerrow web-post-bl)
-    ;; (hudgethumb-tl-place web-post-tr)
+    (hudgethumb-ml-place thumb-post-tr)
+    ;; (key-place (+ innercol-offset 1) cornerrow web-post-bl)
     (key-place (+ innercol-offset 1) cornerrow web-post-br)
-
-    (if (not remove-partial-row)
-    (
-     (key-place (+ innercol-offset 2) lastrow web-post-tl)
-      (key-place (+ innercol-offset 2) lastrow web-post-bl)
-      (hudgethumb-tl-place web-post-tr)
-      (key-place (+ innercol-offset 2) lastrow web-post-bl)
-      (hudgethumb-tl-place web-post-br)
-      (key-place (+ innercol-offset 2) lastrow web-post-br)
-      (key-place (+ innercol-offset 3) lastrow web-post-bl)
-      (hudgethumb-tl-place web-post-br)
-      (hudgethumb-tr-place web-post-tr)
-      )
-    )
-
     )
 
 
@@ -1143,27 +1124,30 @@
          (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-br))
          )
 
-   ;; (hull (hudgethumb-bl-place  thumb-post-tl)
-   ;;       (hudgethumb-bl-place  (translate [2 9 -7] thumb-post-tl))
-   ;;       (key-place  0 (dec lastrow) web-post-tl)
-   ;;       (key-place  0 (dec lastrow) web-post-bl)
-   ;;       )
-
    ; awkward inverted floor
    (hull (hudgethumb-ml-place  thumb-post-tr)
          (hudgethumb-ml-place  thumb-post-tl)
          (key-place  1 (dec lastrow) web-post-bl)
          (key-place  1 (dec lastrow) web-post-br)
-         (key-place  0 (dec lastrow) (translate [0 0 0] web-post-bl))
-         (key-place  0 (dec lastrow) web-post-br)
-         ;; (hudgethumb-ml-place  thumb-post-tl)
-         (hudgethumb-bl-place  web-post-tr)
-         ;; (hudgethumb-bl-place  web-post-tl)
          )
+   (hull 
+         (hudgethumb-ml-place  thumb-post-tl)
+         (key-place  0 (dec lastrow) web-post-br)
+         (hudgethumb-bl-place  web-post-tr)
+         )
+   (hull 
+    (hudgethumb-ml-place  thumb-post-tl)
+    (key-place  1 (dec lastrow) web-post-bl)
+    (key-place  0 (dec lastrow) web-post-br)
+    )
 
    (hull
     (hudgethumb-bl-place web-post-tr)
     (hudgethumb-bl-place web-post-tl)
+    (key-place  0 (dec lastrow) (translate [0 0 0] web-post-bl))
+    )
+   (hull
+    (hudgethumb-bl-place web-post-tr)
     (key-place  0 (dec lastrow) (translate [0 0 0] web-post-bl))
     (key-place  0 (dec lastrow) (translate [0 0 0] web-post-br))
     )
@@ -1533,7 +1517,7 @@
                      thumb-connector-type
                      (difference (union case-walls
                                         screw-insert-outers
-                                        pro-micro-holder
+                                        ;; pro-micro-holder
                                         usb-holder-holder
                                         trrs-holder
                                         reset-holder)
