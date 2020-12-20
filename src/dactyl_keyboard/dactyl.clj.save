@@ -1,0 +1,255 @@
+(ns dactyl-keyboard.dactyl
+    (:refer-clojure :exclude [use import])
+    (:require [clojure.core.matrix :refer [array matrix mmul]]
+              [scad-clj.scad :refer :all]
+              [scad-clj.model :refer :all]
+              [unicode-math.core :refer :all]))
+
+
+(defn deg2rad [degrees]
+  (* (/ degrees 180) pi))
+
+;;;;;;;;;;;;;;;;;;;;;;
+;; Shape parameters ;;
+;;;;;;;;;;;;;;;;;;;;;;
+; v7
+
+(def nrows 4)
+(def ncols 5)
+
+(def α (/ π 12))                        ; curvature of the columns
+(def β (/ π 36))                        ; curvature of the rows
+(def centerrow (- nrows 3))             ; controls front-back tilt
+(def centercol 4)                       ; controls left-right tilt / tenting (higher number is more tenting)
+(def tenting-angle (/ π 12))            ; or, change this for more precise tenting control
+
+(def pinky-15u false)                   ; controls whether the outer column uses 1.5u keys
+(def first-15u-row 0)                   ; controls which should be the first row to have 1.5u keys on the outer column
+(def last-15u-row 3)                    ; controls which should be the last row to have 1.5u keys on the outer column
+
+(def extra-row false)                   ; adds an extra bottom row to the outer columns
+(def inner-column false)                ; adds an extra inner column (two less rows than nrows)
+(def thumb-style "cf")                ; toggles between "default", "mini", and "cf" thumb cluster
+
+(def column-style :standard)
+
+(defn column-offset [column]
+  (if inner-column
+    (cond (<= column 1) [0 -2 0]
+          (= column 3) [0 2.82 -4.5]
+          (>= column 5) [0 -12 5.64]    ; original [0 -5.8 5.64]
+          :else [0 0 0])
+    (cond
+          (= column 0) [0.5 0 0]
+          (= column 2) [0 2.82 -4.5]
+          (= column 4) [4 -10 7.64]
+          (>= column 5) [3.5 -10 7.64]    ; original [0 -5.8 5.64]
+          :else [0 0 0])))
+
+;; (defn column-offset [column]
+;;   (if inner-column
+;;     (cond (<= column 1) [0 -2 0]
+;;           (= column 3) [0 2.82 -4.5]
+;;           (>= column 5) [0 -12 5.64]    ; original [0 -5.8 5.64]
+;;           :else [0 0 0])
+;;     (cond (= column 2) [0 2.82 -4.5]
+;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
+;;           :else [0 0 0])))
+
+(def thumb-offsets [22 -5.25 -1]) ; cf default [6 -3 7]
+
+(def keyboard-z-offset 7)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
+
+(def extra-width 2.5)                   ; extra space between the base of keys; original= 2
+(def extra-height 1.0)                  ; original= 0.5
+
+(def wall-z-offset -8)                 ; length of the first downward-sloping part of the wall (negative)
+(def wall-xy-offset 5)                  ; offset in the x and/or y direction for the first downward-sloping part of the wall (negative)
+(def wall-thickness 2)                  ; wall thickness parameter; originally 5
+
+(def remove-partial-row true)
+
+;; Settings for column-style == :fixed
+;; The defaults roughly match Maltron settings
+;; http://patentimages.storage.googleapis.com/EP0219944A2/imgf0002.png
+;; Fixed-z overrides the z portion of the column ofsets above.
+;; NOTE: THIS DOESN'T WORK QUITE LIKE I'D HOPED.
+(def fixed-angles [(deg2rad 10) (deg2rad 10) 0 0 0 (deg2rad -15) (deg2rad -15)])
+(def fixed-x [-41.5 -22.5 0 20.3 41.4 65.5 89.6])  ; relative to the middle finger
+(def fixed-z [12.1    8.3 0  5   10.7 14.5 17.5])
+(def fixed-tenting (deg2rad 0))
+
+; If you use Cherry MX or Gateron switches, this can be turned on.
+; If you use other switches such as Kailh, you should set this as false
+(def create-side-nubs? false)
+
+;;;;;;;;;;;;;;;;;;;;;;;
+;; General variables ;;
+;;;;;;;;;;;;;;;;;;;;;;;
+
+(def lastrow (dec nrows))
+(def cornerrow (dec lastrow))
+(def lastcol (dec ncols))
+(def extra-cornerrow (if extra-row lastrow cornerrow))
+(def innercol-offset (if inner-column 1 0))
+
+;;;;;;;;;;;;;;;;;
+;; Switch Hole ;;
+;;;;;;;;;;;;;;;;;
+
+(def keyswitch-height 14.15)
+(def keyswitch-width 14.15)
+
+(def sa-profile-key-height 12.7)
+
+(def plate-thickness 4)
+(def side-nub-thickness 4)
+(def retention-tab-thickness 1.5)
+(def retention-tab-hole-thickness (- (+ plate-thickness 0.5) retention-tab-thickness))
+(def mount-width (+ keyswitch-width 3.2))
+(def mount-height (+ keyswitch-height 2.7))
+
+(def single-plate
+  (let [top-wall (->> (cube (+ keyswitch-width 3) 1.5 (+ plate-thickness 0.5))
+                      (translate [0
+                                  (+ (/ 1.5 2) (/ keyswitch-height 2))
+                                  (- (/ plate-thickness 2) 0.25)]))
+        left-wall (->> (cube 1.8 (+ keyswitch-height 3) (+ plate-thickness 0.5))
+                       (translate [(+ (/ 1.8 2) (/ keyswitch-width 2))
+                                   0
+                                   (- (/ plate-thickness 2) 0.25)]))
+        side-nub (->> (binding [*fn* 30] (cylinder 1 2.75))
+                      (rotate (/ π 2) [1 0 0])
+                      (translate [(+ (/ keyswitch-width 2)) 0 1])
+                      (hull (->> (cube 1.5 2.75 side-nub-thickness)
+                                 (translate [(+ (/ 1.5 2) (/ keyswitch-width 2))
+                                             0
+                                             (/ side-nub-thickness 2)])))
+                      (translate [0 0 (- plate-thickness side-nub-thickness)]))
+        plate-half (union top-wall left-wall (if create-side-nubs? (with-fn 100 side-nub)))
+        top-nub (->> (cube 5 5 retention-tab-hole-thickness)
+                     (translate [(+ (/ keyswitch-width 2.5)) 0 (- (/ retention-tab-hole-thickness 2) 0.5)]))
+        top-nub-pair (union top-nub
+                            (->> top-nub
+                                 (mirror [1 0 0])
+                                 (mirror [0 1 0])))]
+    (difference
+     (union plate-half
+            (->> plate-half
+                 (mirror [1 0 0])
+                 (mirror [0 1 0])))
+     (->>
+      top-nub-pair
+      (rotate (/ π 2) [0 0 1])))))
+
+;;;;;;;;;;;;;;;;
+;; SA Keycaps ;;
+;;;;;;;;;;;;;;;;
+
+(def sa-length 18.25)
+(def sa-double-length 37.5)
+(def sa-cap {1 (let [bl2 (/ 18.5 2)
+                     m (/ 17 2)
+                     key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 0.05]))
+                                   (->> (polygon [[m m] [m (- m)] [(- m) (- m)] [(- m) m]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 6]))
+                                   (->> (polygon [[6 6] [6 -6] [-6 -6] [-6 6]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 12])))]
+                 (->> key-cap
+                      (translate [0 0 (+ 5 plate-thickness)])
+                      (color [220/255 163/255 163/255 1])))
+             2 (let [bl2 sa-length
+                     bw2 (/ 18.25 2)
+                     key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 0.05]))
+                                   (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 12])))]
+                 (->> key-cap
+                      (translate [0 0 (+ 5 plate-thickness)])
+                      (color [127/255 159/255 127/255 1])))
+             1.5 (let [bl2 (/ 18.25 2)
+                       bw2 (/ 27.94 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 0.05]))
+                                     (->> (polygon [[11 6] [-11kness 1.5)
+(def retention-tab-hole-thickness (- (+ plate-thickness 0.5) retention-tab-thickness))
+(def mount-width (+ keyswitch-width 3.2))
+(def mount-height (+ keyswitch-height 2.7))
+
+(def single-plate
+  (let [top-wall (->> (cube (+ keyswitch-width 3) 1.5 (+ plate-thickness 0.5))
+                      (translate [0
+                                  (+ (/ 1.5 2) (/ keyswitch-height 2))
+                                  (- (/ plate-thickness 2) 0.25)]))
+        left-wall (->> (cube 1.8 (+ keyswitch-height 3) (+ plate-thickness 0.5))
+                       (translate [(+ (/ 1.8 2) (/ keyswitch-width 2))
+                                   0
+                                   (- (/ plate-thickness 2) 0.25)]))
+        side-nub (->> (binding [*fn* 30] (cylinder 1 2.75))
+                      (rotate (/ π 2) [1 0 0])
+                      (translate [(+ (/ keyswitch-width 2)) 0 1])
+                      (hull (->> (cube 1.5 2.75 side-nub-thickness)
+                                 (translate [(+ (/ 1.5 2) (/ keyswitch-width 2))
+                                             0
+                                             (/ side-nub-thickness 2)])))
+                      (translate [0 0 (- plate-thickness side-nub-thickness)]))
+        plate-half (union top-wall left-wall (if create-side-nubs? (with-fn 100 side-nub)))
+        top-nub (->> (cube 5 5 retention-tab-hole-thickness)
+                     (translate [(+ (/ keyswitch-width 2.5)) 0 (- (/ retention-tab-hole-thickness 2) 0.5)]))
+        top-nub-pair (union top-nub
+                            (->> top-nub
+                                 (mirror [1 0 0])
+                                 (mirror [0 1 0])))]
+    (difference
+     (union plate-half
+            (->> plate-half
+                 (mirror [1 0 0])
+                 (mirror [0 1 0])))
+     (->>
+      top-nub-pair
+      (rotate (/ π 2) [0 0 1])))))
+
+;;;;;;;;;;;;;;;;
+;; SA Keycaps ;;
+;;;;;;;;;;;;;;;;
+
+(def sa-length 18.25)
+(def sa-double-length 37.5)
+(def sa-cap {1 (let [bl2 (/ 18.5 2)
+                     m (/ 17 2)
+                     key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 0.05]))
+                                   (->> (polygon [[m m] [m (- m)] [(- m) (- m)] [(- m) m]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 6]))
+                                   (->> (polygon [[6 6] [6 -6] [-6 -6] [-6 6]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 12])))]
+                 (->> key-cap
+                      (translate [0 0 (+ 5 plate-thickness)])
+                      (color [220/255 163/255 163/255 1])))
+             2 (let [bl2 sa-length
+                     bw2 (/ 18.25 2)
+                     key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 0.05]))
+                                   (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 12])))]
+                 (->> key-cap
+                      (translate [0 0 (+ 5 plate-thickness)])
+                      (color [127/255 159/255 127/255 1])))
+             1.5 (let [bl2 (/ 18.25 2)
+                       bw2 (/ 27.94 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 0.05]))
+                                     (->> (polygon [[11 6] [-11
