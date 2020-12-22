@@ -56,7 +56,7 @@
 ;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
 ;;           :else [0 0 0])))
 
-(def thumb-offsets [20 -5.25 2]) ; hudge default [6 -3 7]
+(def thumb-offsets [20 -5.25 14]) ; hudge default [6 -3 7]
 
 (def keyboard-z-offset 3)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
