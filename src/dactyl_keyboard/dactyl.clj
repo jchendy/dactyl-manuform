@@ -56,7 +56,7 @@
 ;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
 ;;           :else [0 0 0])))
 
-(def thumb-offsets [20 -5.25 14]) ; hudge default [6 -3 7]
+(def thumb-offsets [10 -5.25 17]) ; hudge default [6 -3 7]
 
 (def keyboard-z-offset 3)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
@@ -1117,12 +1117,13 @@
          ;; (hudgethumb-tl-place  thumb-post-tl)
          )
 
-   (hull (hudgethumb-tl-place  web-post-tl)
-         (hudgethumb-tl-place  web-post-tr)
-         (hudgethumb-tl-place  (translate [3.6 0 -8] web-post-tr))
-         (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-bl))
-         (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-br))
-         )
+   ; v16 quick fix
+   ;; (hull (hudgethumb-tl-place  web-post-tl)
+   ;;       (hudgethumb-tl-place  web-post-tr)
+   ;;       (hudgethumb-tl-place  (translate [3.6 0 -8] web-post-tr))
+   ;;       (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-bl))
+   ;;       (key-place  2 (dec lastrow) (translate [0 -1 0] web-post-br))
+   ;;       )
 
    ; awkward inverted floor
    (hull (hudgethumb-ml-place  thumb-post-tr)
@@ -1335,6 +1336,9 @@
    (wall-brace (partial key-place 0 0) 0 1 web-post-tl (partial left-key-place 0 1) 0 1 web-post)
    (wall-brace (partial left-key-place 0 1) 0 1 web-post (partial left-key-place 0 1) -1 0 web-post)
    ; front wall
+   (key-wall-brace (+ innercol-offset 2) front-wall-row  0 -1 web-post-bl (+ innercol-offset 2) front-wall-row   0 -1 web-post-br)
+   (key-wall-brace (+ innercol-offset 2) front-wall-row  0 -1 web-post-br (+ innercol-offset 3) extra-cornerrow 0 -1 web-post-bl)
+   ; v16 quick fix
    (key-wall-brace (+ innercol-offset 3) front-wall-row  0 -1 web-post-bl (+ innercol-offset 3) front-wall-row   0 -1 web-post-br)
    (key-wall-brace (+ innercol-offset 3) front-wall-row  0 -1 web-post-br (+ innercol-offset 4) extra-cornerrow 0 -1 web-post-bl)
    (for [x (range (+ innercol-offset 4) ncols)] (key-wall-brace x extra-cornerrow 0 -1 web-post-bl x       extra-cornerrow 0 -1 web-post-br))
@@ -1445,10 +1449,10 @@
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
   (union (screw-insert 0 0         bottom-radius top-radius height [11 10 0])
-         (screw-insert 0 lastrow   bottom-radius top-radius height [-10 -15 0])
+         (screw-insert 0 lastrow   bottom-radius top-radius height [-20 -15 0])
          (screw-insert lastcol lastrow  bottom-radius top-radius height [-4 12 0])
          (screw-insert lastcol 0         bottom-radius top-radius height [-2 7 0])
-         (screw-insert 1 lastrow         bottom-radius top-radius height [28 -18 0])))
+         (screw-insert 1 lastrow         bottom-radius top-radius height [15 -18 0])))
 
 ; Hole Depth Y: 4.4
 (def screw-insert-height 4)
