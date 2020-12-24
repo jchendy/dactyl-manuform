@@ -56,7 +56,7 @@
 ;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
 ;;           :else [0 0 0])))
 
-(def thumb-offsets [10 -5.25 20]) ; hudge default [6 -3 7]
+(def thumb-offsets [14 -5.25 20]) ; hudge default [6 -3 7]
 
 (def keyboard-z-offset 3)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
@@ -827,14 +827,22 @@
        (rotate (deg2rad 45) [0 1 0])
        (rotate (deg2rad  15) [0 0 1])
        (translate thumborigin)
-       (translate [-63.5 8 7])))
+       (translate [-61.5 8 7])))
 (defn hudgethumb-br-place [shape]
   (->> shape
-       (rotate (deg2rad   -15) [1 0 0])
-       (rotate (deg2rad 45) [0 1 0])
+       (rotate (deg2rad  10) [1 0 0])
+       (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-61 -22 -2])))
+       (translate [-50 -18 -12])))
+; tilted one
+;; (defn hudgethumb-br-place [shape]
+;;   (->> shape
+;;        (rotate (deg2rad   -15) [1 0 0])
+;;        (rotate (deg2rad 45) [0 1 0])
+;;        (rotate (deg2rad  10) [0 0 1])
+;;        (translate thumborigin)
+;;        (translate [-61 -22 -2])))
 
 (defn hudgethumb-1x-layout [shape]
   (union
@@ -901,7 +909,8 @@
     (hudgethumb-br-place web-post-tl)
     (hudgethumb-bl-place web-post-bl)
     (hudgethumb-br-place web-post-tr)
-    (hudgethumb-bl-place web-post-br)
+    (hudgethumb-bl-place web-post-br))
+   (triangle-hulls    ; between top row and bottom row
     (hudgethumb-mr-place web-post-tl)
     (hudgethumb-ml-place web-post-bl)
     (hudgethumb-mr-place web-post-tr)
@@ -1096,7 +1105,7 @@
    ; hudgethumb tweeners
    (wall-brace hudgethumb-mr-place  0 -1.15 web-post-bl hudgethumb-br-place  0 -1 web-post-br)
    (wall-brace hudgethumb-bl-place -1  0 web-post-bl hudgethumb-br-place -1  0 web-post-tl)
-   (wall-brace hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-ml-place 0  1 web-post-tl)
+   ;; (wall-brace hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-ml-place 0  1 web-post-tl)
    ; jhendy hack walls
    ;; (wall-brace hudgethumb-tl-place  0 0 web-post-br (partial key-place 2 5)  0 0 web-post-br)
    (wall-brace hudgethumb-tr-place  0.5 0 web-post-br hudgethumb-tr-place  0.5 0 web-post-tr)
@@ -1342,12 +1351,12 @@
    (for [x (range 0 ncols)] (key-wall-brace x 0 0 1 web-post-tl x       0 0 1 web-post-tr))
    (for [x (range 1 ncols)] (key-wall-brace x 0 0 1 web-post-tl (dec x) 0 0 1 web-post-tr))
    ; left wall
-   (for [y (range 0 (- lastrow innercol-offset))] (union (wall-brace (partial left-key-place y 1) -1 0 web-post (partial left-key-place y -1) -1 0 web-post)
+   (for [y (range 0 (- (dec lastrow) innercol-offset))] (union (wall-brace (partial left-key-place y 1) -1 0 web-post (partial left-key-place y -1) -1 0 web-post)
                                                          (hull (key-place 0 y web-post-tl)
                                                                (key-place 0 y web-post-bl)
                                                                (left-key-place y  1 web-post)
                                                                (left-key-place y -1 web-post))))
-   (for [y (range 1 (- lastrow innercol-offset))] (union
+   (for [y (range 1 (- (dec lastrow) innercol-offset))] (union
                                                    (wall-brace (partial left-key-place (dec y) -1) -1 0 web-post (partial left-key-place y  1) -1 0 web-post)
                                                    (hull (key-place 0 y       web-post-tl)
                                                          (key-place 0 (dec y) web-post-bl)
@@ -1470,7 +1479,7 @@
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
   (union (screw-insert 0 0         bottom-radius top-radius height [11 10 0])
-         (screw-insert 0 lastrow   bottom-radius top-radius height [-30 -15 0])
+         (screw-insert 0 lastrow   bottom-radius top-radius height [-5 -15 0])
          (screw-insert lastcol lastrow  bottom-radius top-radius height [-4 12 0])
          (screw-insert lastcol 0         bottom-radius top-radius height [-2 7 0])
          (screw-insert 1 lastrow         bottom-radius top-radius height [8 -18 0])))
@@ -1541,16 +1550,19 @@
                      ; thumb-connector-type has the thing
                      thumb-connector-type
                      (difference (union case-walls
-                                        screw-insert-outers
+                                        ;; screw-insert-outers
                                         ;; pro-micro-holder
-                                        usb-holder-holder
-                                        trrs-holder
-                                        reset-holder)
-                                 usb-holder-space
-                                 usb-jack
-                                 trrs-holder-hole
-                                 reset-holder-hole
-                                 screw-insert-holes))
+                                        ;; usb-holder-holder
+                                        ;; trrs-holder
+                                        ;; reset-holder
+                                        )
+                                 ;; usb-holder-space
+                                 ;; usb-jack
+                                 ;; trrs-holder-hole
+                                 ;; reset-holder-hole
+                                 ;; screw-insert-holes
+
+                                 ))
                    (translate [0 0 -20] (cube 350 350 40))))
 
 (spit "things/right.scad"
