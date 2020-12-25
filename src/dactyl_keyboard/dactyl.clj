@@ -800,7 +800,7 @@
        (rotate (deg2rad -35) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-11.5 -2.8 3.5])))
+       (translate [-12.5 -2.8 1.5])))
 (defn hudgethumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
@@ -819,9 +819,9 @@
   (->> shape
        (rotate (deg2rad  -20) [1 0 0])
        (rotate (deg2rad -20) [0 1 0])
-       (rotate (deg2rad  10) [0 0 1])
+       (rotate (deg2rad  0) [0 0 1])
        (translate thumborigin)
-       (translate [-26.9 -31 -10])))
+       (translate [-27.9 -32 -10])))
 (defn hudgethumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   40) [1 0 0])
@@ -835,7 +835,7 @@
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-50 -18 -13])))
+       (translate [-49 -18 -14.5])))
 ; tilted one
 ;; (defn hudgethumb-br-place [shape]
 ;;   (->> shape
@@ -850,7 +850,7 @@
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-65 -33 -20])))
+       (translate [-64 -33 -23])))
 
 (defn hudgethumb-1x-layout [shape]
   (union
@@ -1442,7 +1442,7 @@
 
 (def usb-holder-ref (key-position 0 0 (map - (wall-locate2  0  -1) [0 (/ mount-height 2) 0])))
 
-(def usb-holder-position (map + [25 19.3 2] [(first usb-holder-ref) (second usb-holder-ref) 2]))
+(def usb-holder-position (map + [22 19.3 2] [(first usb-holder-ref) (second usb-holder-ref) 2]))
 (def usb-holder-cube   (cube 15 12 2))
 (def usb-holder-space  (translate (map + usb-holder-position [0 (* -1 wall-thickness) 1]) usb-holder-cube))
 (def usb-holder-holder (translate usb-holder-position (cube 19 12 4)))
@@ -1526,11 +1526,13 @@
          (translate (map + offset [(first position) (second position) (/ height 2)])))))
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
-  (union (screw-insert 0 0         bottom-radius top-radius height [11 10 0])
-         (screw-insert 0 lastrow   bottom-radius top-radius height [-5 -15 0])
+  (union (screw-insert 0 0         bottom-radius top-radius height [7 10 0]) ; by usb hole
+         (screw-insert 0 lastrow   bottom-radius top-radius height [-14 -15 0]) ; thumb outside
          (screw-insert lastcol lastrow  bottom-radius top-radius height [-4 12 0])
          (screw-insert lastcol 0         bottom-radius top-radius height [-2 7 0])
-         (screw-insert 1 lastrow         bottom-radius top-radius height [8 -18 0])))
+         (screw-insert 1 lastrow         bottom-radius top-radius height [8 -23 0]) ; thumb bottom middle
+
+         ))
 
 ; Hole Depth Y: 4.4
 (def screw-insert-height 4)
@@ -1598,17 +1600,17 @@
                      ; thumb-connector-type has the thing
                      thumb-connector-type
                      (difference (union case-walls
-                                        ;; screw-insert-outers
+                                        screw-insert-outers
                                         ;; pro-micro-holder
-                                        ;; usb-holder-holder
-                                        ;; trrs-holder
-                                        ;; reset-holder
+                                        usb-holder-holder
+                                        trrs-holder
+                                        reset-holder
                                         )
-                                 ;; usb-holder-space
-                                 ;; usb-jack
-                                 ;; trrs-holder-hole
-                                 ;; reset-holder-hole
-                                 ;; screw-insert-holes
+                                 usb-holder-space
+                                 usb-jack
+                                 trrs-holder-hole
+                                 reset-holder-hole
+                                 screw-insert-holes
 
                                  ))
                    (translate [0 0 -20] (cube 350 350 40))))
