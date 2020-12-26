@@ -23,7 +23,7 @@ prototypes and research of existing forks
 
 Additional research:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dmzk5y_mrlg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+https://www.youtube.com/watch?v=dmzk5y_mrlg
 
 ## Generate OpenSCAD and STL models
 
