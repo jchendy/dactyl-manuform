@@ -12,6 +12,8 @@ This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dact
 - Tentacles
 - Proboscis
 
+![photo of keyboard](./hudge1.png)
+
 ## Generate OpenSCAD and STL models
 
 * Run `lein generate` or `lein auto generate`
