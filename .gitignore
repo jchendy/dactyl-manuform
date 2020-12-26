@@ -7,7 +7,7 @@
 .lein-*
 *.gcode
 /target
-*.stl
+*.scad
 *.ai
 *.svg
 *.dxf
