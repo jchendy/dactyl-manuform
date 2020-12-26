@@ -1,6 +1,6 @@
 # Da Huuuuuudge - a Dactyl ManuForm Keyboard fork with a nasty blob thing for a thumb cluster
 
-This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dactyl-manuform), which is a for of the [Dactyl ManuForm Mini](https://github.com/l4u/dactul-manuform-mini-keyboard), which is a fork of the [Dactyl-ManuForm](https://github.com/tshort/dactyl-keyboard). The Dactyl-Manuform is a fork of the [Dactyl](https://github.com/adereth/dactyl-keyboard) with the thumb cluster from [ManuForm](https://github.com/jeffgran/ManuForm). 
+This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dactyl-manuform), which is a for of the [Dactyl ManuForm Mini](https://github.com/l4u/dactyl-manuform-mini-keyboard), which is a fork of the [Dactyl-ManuForm](https://github.com/tshort/dactyl-keyboard). The Dactyl-Manuform is a fork of the [Dactyl](https://github.com/adereth/dactyl-keyboard) with the thumb cluster from [ManuForm](https://github.com/jeffgran/ManuForm). 
 
 ## Features
 - 7 thumb keys 
