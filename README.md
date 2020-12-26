@@ -12,7 +12,7 @@ This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dact
 - Tentacles
 - Proboscis
 
-![photo of keyboard](./hudge1.png)
+![photo of keyboard](./hudge1.PNG)
 
 ## Generate OpenSCAD and STL models
 
