@@ -4,8 +4,9 @@ This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dact
 
 ## Features
 - 7 thumb keys 
-- IMHO the thumb keys are more comfortable and reachable than any fork I know of. 4 are in an arc similar to Keyboardio Model 01, and the rest are strategically-placed to be easily-reachable from the home position.
+- IMHO the thumb keys are more comfortable and reachable than any fork I know of. 4 are in an arc similar to Keyboardio Model 01, and the rest are angled to be easily reachable from the home position.
 - Removed the two-key row at the bottom to allow pulling thumbs inward.
+- I have made the code into the ugliest and most fragile pile of characters you've ever seen
 - Claws
 - Horns
 - Tusks
@@ -18,8 +19,8 @@ This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dact
 ![photo of keyboard](./hudge4.PNG)
 ![photo of keyboard](./hudge5.PNG)
 
-prototypes and research of existing forks
-![photo of keyboard](./prototypes.PNG)
+Prototypes and research of existing forks:
+![photo of keyboards](./prototypes.PNG)
 
 Additional research:
 
