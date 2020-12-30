@@ -797,10 +797,10 @@
 (defn hudgethumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -35) [0 1 0])
+       (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-12.5 -2.8 1.5])))
+       (translate [-14 -2.8 -4])))
 (defn hudgethumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
@@ -824,11 +824,11 @@
        (translate [-27.9 -32 -10])))
 (defn hudgethumb-bl-place [shape]
   (->> shape
-       (rotate (deg2rad   40) [1 0 0])
-       (rotate (deg2rad 45) [0 1 0])
-       (rotate (deg2rad  15) [0 0 1])
+       (rotate (deg2rad   10) [1 0 0])
+       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-61.5 8 7])))
+       (translate [-56.5 0 -7])))
 (defn hudgethumb-br-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
