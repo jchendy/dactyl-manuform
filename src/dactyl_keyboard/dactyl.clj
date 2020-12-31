@@ -800,7 +800,7 @@
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-14 -2.8 -4])))
+       (translate [-15 -2.8 -1])))
 (defn hudgethumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
@@ -828,14 +828,14 @@
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-56.5 0 -7])))
+       (translate [-55 0 -8.5])))
 (defn hudgethumb-br-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-49 -18 -14.5])))
+       (translate [-48.5 -18 -14.5])))
 ; tilted one
 ;; (defn hudgethumb-br-place [shape]
 ;;   (->> shape
@@ -850,7 +850,7 @@
        (rotate (deg2rad -18) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-64 -33 -23])))
+       (translate [-63 -33 -23])))
 
 (defn hudgethumb-1x-layout [shape]
   (union
@@ -928,11 +928,11 @@
     (hudgethumb-br-place web-post-tr)
     (hudgethumb-bl-place web-post-br)
     )
-   (triangle-hulls    
-    (hudgethumb-ml-place web-post-tl)
-    (hudgethumb-bl-place web-post-br)
-    (key-place 0 front-wall-row web-post-bl)
-    )
+   ;; (triangle-hulls    
+   ;;  (hudgethumb-ml-place web-post-tl)
+   ;;  (hudgethumb-bl-place web-post-br)
+   ;;  (key-place 0 front-wall-row web-post-bl)
+   ;;  )
 
    (if (not remove-partial-row)
      (triangle-hulls
@@ -1121,6 +1121,7 @@
    (wall-brace hudgethumb-mr-place  0 -1 web-post-br hudgethumb-mr-place  0 -1.15 web-post-bl)
    (wall-brace hudgethumb-br-place  0 -1 web-post-br hudgethumb-br-place  0 -1 web-post-bl)
    (wall-brace hudgethumb-bbr-place  0 -1 web-post-br hudgethumb-bbr-place  0 -1 web-post-bl)
+   ; this?
    (wall-no-bottom hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
    (wall-brace hudgethumb-bbr-place -1  0 web-post-tl hudgethumb-bbr-place -1  0 web-post-bl)
    (wall-brace hudgethumb-bbr-place 1  0 web-post-br hudgethumb-br-place 0  0 web-post-bl)
@@ -1131,7 +1132,7 @@
    (wall-brace hudgethumb-bbr-place -1  0 web-post-tl hudgethumb-bbr-place  0 1 web-post-tl)
    (wall-brace hudgethumb-bbr-place 1  0 web-post-br hudgethumb-bbr-place  0 -1 web-post-br)
    (wall-brace hudgethumb-bl-place -1  0 thumb-post-tl hudgethumb-bl-place  0  1 thumb-post-tl)
-   (wall-no-bottom hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  1  0 thumb-post-tr)
+   ;; (wall-no-bottom hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  1  0 thumb-post-tr)
    ; hudgethumb tweeners
    (wall-brace hudgethumb-mr-place  0 -1.15 web-post-bl hudgethumb-br-place  0 -1 web-post-br)
    (wall-brace hudgethumb-bl-place -1  0 web-post-bl hudgethumb-br-place -1  0 web-post-tl)
@@ -1208,28 +1209,28 @@
          (hudgethumb-br-place  web-post-tr)
          )
 
-   (hull 
-    (hudgethumb-bl-place thumb-post-tr)
-    (hudgethumb-bl-place web-post-br)
-    (key-place 0 front-wall-row web-post-tl)
-    (key-place 0 front-wall-row web-post-bl)
-    )
+   ;; (hull 
+   ;;  (hudgethumb-bl-place thumb-post-tr)
+   ;;  (hudgethumb-bl-place web-post-br)
+   ;;  (key-place 0 front-wall-row web-post-tl)
+   ;;  (key-place 0 front-wall-row web-post-bl)
+   ;;  )
 
 
-   (hull 
-    (hudgethumb-bl-place thumb-post-tr)
-    (wall-corner1 hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  1  0 thumb-post-tr)
-    (key-place 0 front-wall-row web-post-tl)
-    (key-place 0 (dec front-wall-row) web-post-bl)
-    )
+   ;; (hull 
+   ;;  (hudgethumb-bl-place thumb-post-tr)
+   ;;  (wall-corner1 hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  1  0 thumb-post-tr)
+   ;;  (key-place 0 front-wall-row web-post-tl)
+   ;;  (key-place 0 (dec front-wall-row) web-post-bl)
+   ;;  )
 
 
-   (hull 
-    (wall-corner1 hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
-    (wall-corner2 hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
-    (key-wall-corner1 0 (dec front-wall-row) -1.5 0 web-post-bl 0 (dec front-wall-row) -1.5 0 web-post-tl)
-    (key-place 0 (dec front-wall-row) web-post-bl)
-    )
+   ;; (hull 
+   ;;  (wall-corner1 hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
+   ;;  (wall-corner2 hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
+   ;;  (key-wall-corner1 0 (dec front-wall-row) -1.5 0 web-post-bl 0 (dec front-wall-row) -1.5 0 web-post-tl)
+   ;;  (key-place 0 (dec front-wall-row) web-post-bl)
+   ;;  )
 
    ; connectors below the inner column to the thumb & second column
    (if inner-column
@@ -1404,7 +1405,7 @@
                                                                (key-place 0 y web-post-bl)
                                                                (left-key-place y  1 web-post)
                                                                (left-key-place y -1 web-post))))
-   (for [y (range 1 (- (dec lastrow) innercol-offset))] (union
+   (for [y (range 1 (- lastrow innercol-offset))] (union
                                                    (wall-brace (partial left-key-place (dec y) -1) -1 0 web-post (partial left-key-place y  1) -1 0 web-post)
                                                    (hull (key-place 0 y       web-post-tl)
                                                          (key-place 0 (dec y) web-post-bl)
