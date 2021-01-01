@@ -797,10 +797,10 @@
 (defn hudgethumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad -35) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-15 -2.8 -1])))
+       (translate [-12.5 -2.8 1.5])))
 (defn hudgethumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
@@ -947,8 +947,9 @@
     (key-place (+ innercol-offset 2) cornerrow web-post-bl)
     (key-place (+ innercol-offset 2) lastrow web-post-tr)
     (key-place (+ innercol-offset 2) cornerrow web-post-br)
-    (key-place (+ innercol-offset 3) lastrow web-post-tl)
-    (key-place (+ innercol-offset 3) cornerrow web-post-bl))
+    ;; (key-place (+ innercol-offset 3) lastrow web-post-tl)
+    (key-place (+ innercol-offset 3) cornerrow web-post-bl)
+    )
    (if extra-row
      (union
       (triangle-hulls
@@ -1173,6 +1174,12 @@
     (hudgethumb-tl-place web-post-tl)
     (hudgethumb-ml-place web-post-tr)
     (key-place 2 (inc front-wall-row) web-post-tl)
+    )
+
+   (hull 
+    (key-place 0 front-wall-row web-post-bl)
+    (hudgethumb-ml-place web-post-tl)
+    (hudgethumb-bl-place web-post-br)
     )
 
    (hull 
@@ -1490,7 +1497,7 @@
 (def reset-holder-position  (map + usb-holder-position [-17.6 0 13]))
 (def reset-holder-thickness 2)
 (def reset-holder-thickness-2x (* 2 reset-holder-thickness))
-(def reset-holder-radius 3.55)
+(def reset-holder-radius 3.65)
 (def reset-holder
   (union
    (->> (cube (+ (first reset-holder-size) reset-holder-thickness-2x) (+ reset-holder-thickness (second reset-holder-size)) (+ (last reset-holder-size) reset-holder-thickness))
