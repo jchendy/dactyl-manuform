@@ -12,7 +12,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Shape parameters ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-; v7
+; v25
 
 (def nrows 4)
 (def ncols 6)
