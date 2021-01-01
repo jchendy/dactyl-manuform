@@ -1546,8 +1546,8 @@
 (def screw-insert-height 4)
 
 ; Hole Diameter C: 4.1-4.4
-(def screw-insert-bottom-radius (/ 5 2))
-(def screw-insert-top-radius (/ 5 2))
+(def screw-insert-bottom-radius 2.4)
+(def screw-insert-top-radius 2.4)
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 
 ; Wall Thickness W:\t1.65
