@@ -797,21 +797,21 @@
 (defn hudgethumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -35) [0 1 0])
+       (rotate (deg2rad -20) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-12.5 -2.8 1.5])))
+       (translate [-12.5 -2.8 -2.5])))
 (defn hudgethumb-tr-place [shape]
   (->> shape
        (rotate (deg2rad  -5) [1 0 0])
-       (rotate (deg2rad -55) [0 1 0])
+       (rotate (deg2rad -45) [0 1 0])
        (rotate (deg2rad  0) [0 0 1])
        (translate thumborigin)
-       (translate [-2.4 -27 2.5])))
+       (translate [-1.4 -27 -3])))
 (defn hudgethumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-33 -4.8 -6.5])))
@@ -821,21 +821,21 @@
        (rotate (deg2rad -20) [0 1 0])
        (rotate (deg2rad  0) [0 0 1])
        (translate thumborigin)
-       (translate [-27.9 -32 -10])))
+       (translate [-26.4 -32 -11.5])))
 (defn hudgethumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
-       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-55 0 -8.5])))
+       (translate [-55 1 -5])))
 (defn hudgethumb-br-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-48.5 -18 -14.5])))
+       (translate [-49.5 -18 -10.5])))
 ; tilted one
 ;; (defn hudgethumb-br-place [shape]
 ;;   (->> shape
@@ -847,17 +847,17 @@
 (defn hudgethumb-bbl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-72 -8 -14.5])))
+       (translate [-72 -8 -8.5])))
 (defn hudgethumb-bbr-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
-       (rotate (deg2rad -18) [0 1 0])
+       (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-63 -33 -23])))
+       (translate [-66 -33 -15])))
 
 (defn hudgethumb-1x-layout [shape]
   (union
@@ -1533,7 +1533,7 @@
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
   (union (screw-insert 0 0         bottom-radius top-radius height [7 10 0]) ; by usb hole
-         (screw-insert 0 lastrow   bottom-radius top-radius height [-14 -15 0]) ; thumb outside
+         (screw-insert 0 lastrow   bottom-radius top-radius height [-19 -15 0]) ; thumb outside
          (screw-insert lastcol lastrow  bottom-radius top-radius height [-4 12 0])
          (screw-insert lastcol 0         bottom-radius top-radius height [-2 7 0])
          (screw-insert 1 lastrow         bottom-radius top-radius height [8 -23 0]) ; thumb bottom middle
