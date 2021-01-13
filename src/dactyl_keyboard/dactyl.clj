@@ -828,7 +828,7 @@
        (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-55 1 -5])))
+       (translate [-56 3 -4])))
 (defn hudgethumb-br-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
@@ -850,7 +850,8 @@
        (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
-       (translate [-72 -8 -8.5])))
+       (translate [-73 -7 -7.5])))
+;;
 (defn hudgethumb-bbr-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
