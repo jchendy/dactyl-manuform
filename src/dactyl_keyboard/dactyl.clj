@@ -1514,7 +1514,7 @@
          (screw-insert 0 lastrow   bottom-radius top-radius height [-19 -15 0]) ; thumb outside
          (screw-insert lastcol lastrow  bottom-radius top-radius height [-6 12 0])
          (screw-insert lastcol 0         bottom-radius top-radius height [-2 7 0])
-         (screw-insert 1 lastrow         bottom-radius top-radius height [8 5 0]) ; thumb bottom middle
+         (screw-insert 1 lastrow         bottom-radius top-radius height [8 5.6 0]) ; thumb bottom middle
 
          ))
 
