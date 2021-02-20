@@ -28,7 +28,7 @@
 
 (def extra-row false)                   ; adds an extra bottom row to the outer columns
 (def inner-column false)                ; adds an extra inner column (two less rows than nrows)
-(def thumb-style "hudge")                ; toggles between "default", "mini", and "hudge" thumb cluster
+(def thumb-style "dactylria")                ; toggles between "default", "mini", and "dactylria" thumb cluster
 
 (def column-style :standard)
 
@@ -55,7 +55,7 @@
 ;;           (>= column 4) [0 -12 5.64]    ; original [0 -5.8 5.64]
 ;;           :else [0 0 0])))
 
-(def thumb-offsets [16 -5.25 20]) ; hudge default [6 -3 7]
+(def thumb-offsets [16 -5.25 20]) ; dactylria default [6 -3 7]
 
 (def keyboard-z-offset 1.5)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
@@ -790,38 +790,38 @@
        (key-place (+ innercol-offset 4) cornerrow web-post-bl))))))
 
 ;;;;;;;;;;;;;;;;
-;; hudge Thumb ;;
+;; dactylria Thumb ;;
 ;;;;;;;;;;;;;;;;
 
-(defn hudgethumb-tl-place [shape]
+(defn dactylriathumb-tl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -20) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-12.5 -2.8 -2.5])))
-(defn hudgethumb-ml-place [shape]
+(defn dactylriathumb-ml-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-33 -4.8 -6.5])))
-(defn hudgethumb-bl-place [shape]
+(defn dactylriathumb-bl-place [shape]
   (->> shape
        (rotate (deg2rad   10) [1 0 0])
        (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-56 3 -4])))
-(defn hudgethumb-br-place [shape]
+(defn dactylriathumb-br-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -8) [0 1 0])
        (rotate (deg2rad  10) [0 0 1])
        (translate thumborigin)
        (translate [-49.5 -18 -10.5])))
-(defn hudgethumb-bbl-place [shape]
+(defn dactylriathumb-bbl-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -8) [0 1 0])
@@ -829,7 +829,7 @@
        (translate thumborigin)
        (translate [-73 -7 -7.5])))
 ;;
-(defn hudgethumb-bbr-place [shape]
+(defn dactylriathumb-bbr-place [shape]
   (->> shape
        (rotate (deg2rad  10) [1 0 0])
        (rotate (deg2rad -8) [0 1 0])
@@ -837,75 +837,75 @@
        (translate thumborigin)
        (translate [-66 -33 -15])))
 
-(defn hudgethumb-1x-layout [shape]
+(defn dactylriathumb-1x-layout [shape]
   (union
-   (hudgethumb-br-place shape)
-   (hudgethumb-bl-place shape)
-   (hudgethumb-bbl-place shape)
-   (hudgethumb-bbr-place shape)
-   (hudgethumb-ml-place shape)
-   (hudgethumb-tl-place (rotate (/ π 2) [0 0 0] shape))))
+   (dactylriathumb-br-place shape)
+   (dactylriathumb-bl-place shape)
+   (dactylriathumb-bbl-place shape)
+   (dactylriathumb-bbr-place shape)
+   (dactylriathumb-ml-place shape)
+   (dactylriathumb-tl-place (rotate (/ π 2) [0 0 0] shape))))
 
-(defn hudgethumb-15x-layout [shape]
+(defn dactylriathumb-15x-layout [shape]
   )
 
-(def hudgethumbcaps
+(def dactylriathumbcaps
   (union
-   (hudgethumb-1x-layout (sa-cap 1))
-   (hudgethumb-15x-layout (rotate (/ π 2) [0 0 1] (sa-cap 1.5)))))
+   (dactylriathumb-1x-layout (sa-cap 1))
+   (dactylriathumb-15x-layout (rotate (/ π 2) [0 0 1] (sa-cap 1.5)))))
 
-(def hudgethumbcaps-fill
+(def dactylriathumbcaps-fill
   (union
-   (hudgethumb-1x-layout keyhole-fill)
-   (hudgethumb-15x-layout (rotate (/ π 2) [0 0 1] keyhole-fill))))
+   (dactylriathumb-1x-layout keyhole-fill)
+   (dactylriathumb-15x-layout (rotate (/ π 2) [0 0 1] keyhole-fill))))
 
-(def hudgethumb
+(def dactylriathumb
   (union
-   (hudgethumb-1x-layout single-plate)
-   (hudgethumb-15x-layout larger-plate-half)
-   (hudgethumb-15x-layout single-plate)))
+   (dactylriathumb-1x-layout single-plate)
+   (dactylriathumb-15x-layout larger-plate-half)
+   (dactylriathumb-15x-layout single-plate)))
 
-(def hudgethumb-connectors
+(def dactylriathumb-connectors
   (union
 
    (triangle-hulls    ; top two
-    (hudgethumb-tl-place web-post-tl)
-    (hudgethumb-tl-place web-post-bl)
-    (hudgethumb-ml-place web-post-tr)
-    (hudgethumb-ml-place web-post-br))
+    (dactylriathumb-tl-place web-post-tl)
+    (dactylriathumb-tl-place web-post-bl)
+    (dactylriathumb-ml-place web-post-tr)
+    (dactylriathumb-ml-place web-post-br))
    ;; (triangle-hulls    ; bottom two
-   ;;  (hudgethumb-br-place web-post-tr)
-   ;;  (hudgethumb-br-place web-post-br)
-   ;;  (hudgethumb-mr-place web-post-tl)
-   ;;  (hudgethumb-mr-place web-post-bl))
+   ;;  (dactylriathumb-br-place web-post-tr)
+   ;;  (dactylriathumb-br-place web-post-br)
+   ;;  (dactylriathumb-mr-place web-post-tl)
+   ;;  (dactylriathumb-mr-place web-post-bl))
    (triangle-hulls    ; between top row and bottom row
-    (hudgethumb-br-place web-post-tl)
-    (hudgethumb-bl-place web-post-bl)
-    (hudgethumb-br-place web-post-tr)
-    (hudgethumb-bl-place web-post-br))
+    (dactylriathumb-br-place web-post-tl)
+    (dactylriathumb-bl-place web-post-bl)
+    (dactylriathumb-br-place web-post-tr)
+    (dactylriathumb-bl-place web-post-br))
    ;; (triangle-hulls    ; between top row and bottom row
-   ;;  (hudgethumb-mr-place web-post-tl)
-   ;;  (hudgethumb-ml-place web-post-bl)
-   ;;  (hudgethumb-mr-place web-post-tr)
-   ;;  (hudgethumb-ml-place web-post-br)
-   ;;  (hudgethumb-tr-place web-post-tl)
-   ;;  (hudgethumb-tl-place web-post-bl)
-   ;;  (hudgethumb-tr-place web-post-tr)
-   ;;  (hudgethumb-tl-place web-post-br))
+   ;;  (dactylriathumb-mr-place web-post-tl)
+   ;;  (dactylriathumb-ml-place web-post-bl)
+   ;;  (dactylriathumb-mr-place web-post-tr)
+   ;;  (dactylriathumb-ml-place web-post-br)
+   ;;  (dactylriathumb-tr-place web-post-tl)
+   ;;  (dactylriathumb-tl-place web-post-bl)
+   ;;  (dactylriathumb-tr-place web-post-tr)
+   ;;  (dactylriathumb-tl-place web-post-br))
 
    (triangle-hulls    
-    (hudgethumb-ml-place web-post-tl)
-    (hudgethumb-ml-place web-post-bl)
-    (hudgethumb-br-place web-post-tr)
+    (dactylriathumb-ml-place web-post-tl)
+    (dactylriathumb-ml-place web-post-bl)
+    (dactylriathumb-br-place web-post-tr)
     )
    (triangle-hulls    
-    (hudgethumb-ml-place web-post-tl)
-    (hudgethumb-br-place web-post-tr)
-    (hudgethumb-bl-place web-post-br)
+    (dactylriathumb-ml-place web-post-tl)
+    (dactylriathumb-br-place web-post-tr)
+    (dactylriathumb-bl-place web-post-br)
     )
    ;; (triangle-hulls    
-   ;;  (hudgethumb-ml-place web-post-tl)
-   ;;  (hudgethumb-bl-place web-post-br)
+   ;;  (dactylriathumb-ml-place web-post-tl)
+   ;;  (dactylriathumb-bl-place web-post-br)
    ;;  (key-place 0 front-wall-row web-post-bl)
    ;;  )
 
@@ -961,11 +961,11 @@
   (def thumbcaps-type thumbcaps)
   (def thumbcaps-fill-type thumbcaps-fill))
 
-(when (= thumb-style "hudge")
-  (def thumb-type hudgethumb)
-  (def thumb-connector-type hudgethumb-connectors)
-  (def thumbcaps-type hudgethumbcaps)
-  (def thumbcaps-fill-type hudgethumbcaps-fill))
+(when (= thumb-style "dactylria")
+  (def thumb-type dactylriathumb)
+  (def thumb-connector-type dactylriathumb-connectors)
+  (def thumbcaps-type dactylriathumbcaps)
+  (def thumbcaps-fill-type dactylriathumbcaps-fill))
 
 (when (= thumb-style "mini")
   (def thumb-type minithumb)
@@ -1090,63 +1090,63 @@
            (key-wall-brace lastcol extra-cornerrow 0 -1 web-post-br lastcol extra-cornerrow 1 0 web-post-br)
            )))
 
-(def hudge-thumb-wall
+(def dactylria-thumb-wall
   (union
    ; thumb walls
-   (wall-brace hudgethumb-ml-place  0 -1.5 web-post-br hudgethumb-tl-place  0 -1.3 web-post-br)
-   (wall-brace hudgethumb-ml-place  0 -1.5 web-post-br hudgethumb-ml-place  0 -2.25 web-post-bl)
+   (wall-brace dactylriathumb-ml-place  0 -1.5 web-post-br dactylriathumb-tl-place  0 -1.3 web-post-br)
+   (wall-brace dactylriathumb-ml-place  0 -1.5 web-post-br dactylriathumb-ml-place  0 -2.25 web-post-bl)
    ; this one
-   (wall-brace hudgethumb-br-place  0 -1 web-post-br hudgethumb-bbr-place  0 -1 web-post-br)
-   (wall-brace hudgethumb-br-place  0 -1 web-post-br hudgethumb-ml-place  0 -2.25 web-post-bl)
-   (wall-brace hudgethumb-bbr-place  0 -1 web-post-br hudgethumb-bbr-place  0 -1 web-post-bl)
+   (wall-brace dactylriathumb-br-place  0 -1 web-post-br dactylriathumb-bbr-place  0 -1 web-post-br)
+   (wall-brace dactylriathumb-br-place  0 -1 web-post-br dactylriathumb-ml-place  0 -2.25 web-post-bl)
+   (wall-brace dactylriathumb-bbr-place  0 -1 web-post-br dactylriathumb-bbr-place  0 -1 web-post-bl)
    ; this?
-   (wall-no-bottom hudgethumb-bl-place 0  1 thumb-post-tr hudgethumb-bl-place  0  1 thumb-post-tl)
-   (wall-brace hudgethumb-bbl-place -1  0 web-post-tl hudgethumb-bbl-place -1  0 web-post-bl)
-   (wall-brace hudgethumb-bbr-place -1  0 web-post-tl hudgethumb-bbr-place -1  0 web-post-bl)
-   ; hudgethumb corners
-   (wall-brace hudgethumb-bbr-place -1  0 web-post-bl hudgethumb-bbr-place  0 -1 web-post-bl)
-   (wall-brace hudgethumb-bbl-place -1  0 web-post-tl hudgethumb-bbl-place  0 1.5 web-post-tl)
-   (wall-brace hudgethumb-bbl-place 0 1.5 web-post-tl hudgethumb-bbl-place  0.2 1.5 web-post-tr)
-   (wall-brace hudgethumb-bl-place -1  0 thumb-post-tl hudgethumb-bl-place  0  1 thumb-post-tl)
-   (wall-brace hudgethumb-bl-place -1  0 web-post-tl hudgethumb-bl-place  -1 0 thumb-post-tl)
-   (wall-brace hudgethumb-tl-place 0.5  0 web-post-br hudgethumb-tl-place  0 -1.3 web-post-br)
-   ; hudgethumb tweeners
-   (wall-brace hudgethumb-bbl-place -1  0 web-post-bl hudgethumb-bbr-place -1  0 web-post-tl)
+   (wall-no-bottom dactylriathumb-bl-place 0  1 thumb-post-tr dactylriathumb-bl-place  0  1 thumb-post-tl)
+   (wall-brace dactylriathumb-bbl-place -1  0 web-post-tl dactylriathumb-bbl-place -1  0 web-post-bl)
+   (wall-brace dactylriathumb-bbr-place -1  0 web-post-tl dactylriathumb-bbr-place -1  0 web-post-bl)
+   ; dactylriathumb corners
+   (wall-brace dactylriathumb-bbr-place -1  0 web-post-bl dactylriathumb-bbr-place  0 -1 web-post-bl)
+   (wall-brace dactylriathumb-bbl-place -1  0 web-post-tl dactylriathumb-bbl-place  0 1.5 web-post-tl)
+   (wall-brace dactylriathumb-bbl-place 0 1.5 web-post-tl dactylriathumb-bbl-place  0.2 1.5 web-post-tr)
+   (wall-brace dactylriathumb-bl-place -1  0 thumb-post-tl dactylriathumb-bl-place  0  1 thumb-post-tl)
+   (wall-brace dactylriathumb-bl-place -1  0 web-post-tl dactylriathumb-bl-place  -1 0 thumb-post-tl)
+   (wall-brace dactylriathumb-tl-place 0.5  0 web-post-br dactylriathumb-tl-place  0 -1.3 web-post-br)
+   ; dactylriathumb tweeners
+   (wall-brace dactylriathumb-bbl-place -1  0 web-post-bl dactylriathumb-bbr-place -1  0 web-post-tl)
 
-   ; hudge hack walls
-   ;; (wall-brace hudgethumb-tr-place  0.5 0 web-post-br hudgethumb-tr-place  0.5 0 web-post-tr)
-   (wall-brace hudgethumb-tl-place  0.5 0 web-post-br hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ))
-   (wall-no-bottom hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
+   ; dactylria hack walls
+   ;; (wall-brace dactylriathumb-tr-place  0.5 0 web-post-br dactylriathumb-tr-place  0.5 0 web-post-tr)
+   (wall-brace dactylriathumb-tl-place  0.5 0 web-post-br dactylriathumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ))
+   (wall-no-bottom dactylriathumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) dactylriathumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
    ; tweener
-   ;; (wall-brace hudgethumb-tl-place  0.5 0 web-post-br hudgethumb-tr-place  0.5 0 web-post-tr)
+   ;; (wall-brace dactylriathumb-tl-place  0.5 0 web-post-br dactylriathumb-tr-place  0.5 0 web-post-tr)
    ;; ; corner
-   ;; (wall-brace hudgethumb-tr-place 0.5 0 web-post-br hudgethumb-tr-place  0 -1 web-post-br)
+   ;; (wall-brace dactylriathumb-tr-place 0.5 0 web-post-br dactylriathumb-tr-place  0 -1 web-post-br)
 
    ; ugly connection to main board
 
-   (hull (wall-corner1 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
-         (wall-corner2 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
+   (hull (wall-corner1 dactylriathumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) dactylriathumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
+         (wall-corner2 dactylriathumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) dactylriathumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
          (key-place 2 (inc front-wall-row) (translate [-2 0 0] web-post-tr))
          (key-place 2 (inc front-wall-row) (translate [-2 -2 0] web-post-tr))
          )
 
    (hull 
-         (wall-corner2 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
+         (wall-corner2 dactylriathumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) dactylriathumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
          (key-place 2 (inc front-wall-row) (translate [-2 0 0] web-post-tr))
          (key-place 2 (inc front-wall-row) web-post-tl)
          )
 
    (hull 
-    (wall-corner2 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
+    (wall-corner2 dactylriathumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) dactylriathumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
     (key-place 2 (inc front-wall-row) web-post-tl)
-    (hudgethumb-tl-place web-post-tr)
+    (dactylriathumb-tl-place web-post-tr)
     )
    (hull 
     (key-place 1 front-wall-row web-post-bl)
     (key-place 1 front-wall-row web-post-br)
-    (hudgethumb-tl-place web-post-tr)
-    (hudgethumb-tl-place web-post-tl)
-    (hudgethumb-ml-place web-post-tr)
+    (dactylriathumb-tl-place web-post-tr)
+    (dactylriathumb-tl-place web-post-tl)
+    (dactylriathumb-ml-place web-post-tr)
     (key-place 2 (inc front-wall-row) web-post-tl)
     )
 
@@ -1154,64 +1154,64 @@
    (hull 
     (key-place 0 front-wall-row web-post-bl)
     (key-place 0 front-wall-row web-post-tl)
-    (hudgethumb-bl-place web-post-tr)
-    (hudgethumb-bl-place thumb-post-tr)
+    (dactylriathumb-bl-place web-post-tr)
+    (dactylriathumb-bl-place thumb-post-tr)
     )
 
    (hull 
     (key-place 0 front-wall-row web-post-bl)
-    (hudgethumb-ml-place web-post-tl)
-    (hudgethumb-bl-place web-post-br)
+    (dactylriathumb-ml-place web-post-tl)
+    (dactylriathumb-bl-place web-post-br)
     )
 
    (hull 
     (key-place 1 front-wall-row web-post-bl)
     (key-place 0 front-wall-row web-post-bl)
     (key-place 0 front-wall-row web-post-br)
-    (hudgethumb-ml-place web-post-tr)
-    (hudgethumb-ml-place web-post-tl)
+    (dactylriathumb-ml-place web-post-tr)
+    (dactylriathumb-ml-place web-post-tl)
     )
 
-   (hull (hudgethumb-bl-place  thumb-post-tr)
-         (hudgethumb-bl-place  thumb-post-tl)
-         (hudgethumb-bl-place  web-post-tl)
-         (hudgethumb-bl-place  web-post-tr)
+   (hull (dactylriathumb-bl-place  thumb-post-tr)
+         (dactylriathumb-bl-place  thumb-post-tl)
+         (dactylriathumb-bl-place  web-post-tl)
+         (dactylriathumb-bl-place  web-post-tr)
          )
    (hull 
-         (hudgethumb-bl-place  web-post-bl)
-         (hudgethumb-bbl-place  web-post-br)
-         (hudgethumb-bbr-place  web-post-tr)
+         (dactylriathumb-bl-place  web-post-bl)
+         (dactylriathumb-bbl-place  web-post-br)
+         (dactylriathumb-bbr-place  web-post-tr)
          )
    (hull 
-    (hudgethumb-bl-place  web-post-bl)
-    (hudgethumb-br-place  web-post-tl)
-    (hudgethumb-bbr-place  web-post-tr)
+    (dactylriathumb-bl-place  web-post-bl)
+    (dactylriathumb-br-place  web-post-tl)
+    (dactylriathumb-bbr-place  web-post-tr)
     )
-   (hull (hudgethumb-bl-place  web-post-tl)
-         (hudgethumb-bl-place  web-post-bl)
-         (hudgethumb-bbl-place  web-post-tr)
-         (hudgethumb-bbl-place  web-post-br)
+   (hull (dactylriathumb-bl-place  web-post-tl)
+         (dactylriathumb-bl-place  web-post-bl)
+         (dactylriathumb-bbl-place  web-post-tr)
+         (dactylriathumb-bbl-place  web-post-br)
          )
-   (hull (hudgethumb-bbr-place  web-post-tl)
-         (hudgethumb-bbr-place  web-post-tr)
-         (hudgethumb-bbl-place  web-post-bl)
-         (hudgethumb-bbl-place  web-post-br)
+   (hull (dactylriathumb-bbr-place  web-post-tl)
+         (dactylriathumb-bbr-place  web-post-tr)
+         (dactylriathumb-bbl-place  web-post-bl)
+         (dactylriathumb-bbl-place  web-post-br)
          )
-   (hull (hudgethumb-bbr-place  web-post-br)
-         (hudgethumb-br-place  web-post-bl)
-         (hudgethumb-br-place  web-post-br)
-         ;; (hudgethumb-mr-place  web-post-bl)
+   (hull (dactylriathumb-bbr-place  web-post-br)
+         (dactylriathumb-br-place  web-post-bl)
+         (dactylriathumb-br-place  web-post-br)
+         ;; (dactylriathumb-mr-place  web-post-bl)
          )
-   (hull (hudgethumb-bbr-place  web-post-br)
-         (hudgethumb-bbr-place  web-post-tr)
-         (hudgethumb-br-place  web-post-bl)
-         (hudgethumb-br-place  web-post-tl)
+   (hull (dactylriathumb-bbr-place  web-post-br)
+         (dactylriathumb-bbr-place  web-post-tr)
+         (dactylriathumb-br-place  web-post-bl)
+         (dactylriathumb-br-place  web-post-tl)
          )
    (hull 
-         (hudgethumb-ml-place  web-post-bl)
-         ;; (hudgethumb-mr-place  web-post-tl)
-         (hudgethumb-br-place  web-post-br)
-         (hudgethumb-br-place  web-post-tr)
+         (dactylriathumb-ml-place  web-post-bl)
+         ;; (dactylriathumb-mr-place  web-post-tl)
+         (dactylriathumb-br-place  web-post-br)
+         (dactylriathumb-br-place  web-post-tr)
          )
 
    ; connectors below the inner column to the thumb & second column
@@ -1232,7 +1232,7 @@
       (hull
        (key-place 0 (dec cornerrow) web-post-bl)
        (key-place 1 cornerrow web-post-bl)
-       (hudgethumb-ml-place thumb-post-tl))))))
+       (dactylriathumb-ml-place thumb-post-tl))))))
 
 (def mini-thumb-wall
   (union
@@ -1371,7 +1371,7 @@
 (def thumb-wall-type
   (case thumb-style
     "default" default-thumb-wall
-    "hudge" hudge-thumb-wall
+    "dactylria" dactylria-thumb-wall
     "mini" mini-thumb-wall))
 
 (def case-walls
