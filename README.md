@@ -5,6 +5,8 @@ This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dact
 
 ![photo of keyboard](./dactylria.jpg)
 
+STL files available in things directory
+
 
 ## Generate OpenSCAD and STL models
 
