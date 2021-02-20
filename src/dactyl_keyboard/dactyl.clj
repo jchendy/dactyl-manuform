@@ -12,7 +12,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 ;; Shape parameters ;;
 ;;;;;;;;;;;;;;;;;;;;;;
-; v25
 
 (def nrows 4)
 (def ncols 5)
@@ -1127,14 +1126,14 @@
 
    (hull (wall-corner1 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
          (wall-corner2 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
-         (key-place 2 3 (translate [-2 0 0] web-post-tr))
-         (key-place 2 3 (translate [-2 -2 0] web-post-tr))
+         (key-place 2 (inc front-wall-row) (translate [-2 0 0] web-post-tr))
+         (key-place 2 (inc front-wall-row) (translate [-2 -2 0] web-post-tr))
          )
 
    (hull 
          (wall-corner2 hudgethumb-tl-place  0.5 0 (translate [0 -7 0] web-post-tr ) hudgethumb-tl-place  0.5 0 (translate [0 0 0] web-post-tr ))
-         (key-place 2 3 (translate [-2 0 0] web-post-tr))
-         (key-place 2 3 web-post-tl)
+         (key-place 2 (inc front-wall-row) (translate [-2 0 0] web-post-tr))
+         (key-place 2 (inc front-wall-row) web-post-tl)
          )
 
    (hull 
