@@ -1,30 +1,10 @@
-# Da Huuuuuudge - a Dactyl ManuForm Keyboard fork with a nasty blob thing for a thumb cluster
+# Dactylria - a Dactyl ManuForm Keyboard fork with thumbs inspired by Kyria and Keyboardio Model 01
 
 This is a fork of [Carbonfet's Dactyl Manuform](http://github.com/carbonfet/dactyl-manuform), which is a fork of the [Dactyl ManuForm Mini](https://github.com/l4u/dactyl-manuform-mini-keyboard), which is a fork of the [Dactyl-ManuForm](https://github.com/tshort/dactyl-keyboard). The Dactyl-Manuform is a fork of the [Dactyl](https://github.com/adereth/dactyl-keyboard) with the thumb cluster from [ManuForm](https://github.com/jeffgran/ManuForm). 
 
-## Features
-- 7 thumb keys 
-- IMHO the thumb keys are more comfortable and reachable than any fork I know of. 4 are in an arc similar to Keyboardio Model 01, and the rest are angled to be easily reachable from the home position.
-- Removed the two-key row at the bottom to allow pulling thumbs inward.
-- I have made the code into the ugliest and most fragile pile of characters you've ever seen
-- Claws
-- Horns
-- Tusks
-- Tentacles
-- Proboscis
 
-![photo of keyboard](./hudge1.PNG)
-![photo of keyboard](./hudge2.PNG)
-![photo of keyboard](./hudge3.PNG)
-![photo of keyboard](./hudge4.PNG)
-![photo of keyboard](./hudge5.PNG)
+![photo of keyboard](./dactylria.jpg)
 
-Prototypes and research of existing forks:
-![photo of keyboards](./prototypes.PNG)
-
-Additional research:
-
-https://www.youtube.com/watch?v=dmzk5y_mrlg
 
 ## Generate OpenSCAD and STL models
 
